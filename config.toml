@@ -2,7 +2,7 @@
 theme = "duckquill"
 
 # The URL the site will be built for
-base_url = "https://saif.github.io"
+base_url = "https://saif-it.pages.dev"
 
 title = "Saif Bin Shahab"
 description = "Saif Bin Shahab is an experienced Cyber Security Specialist and Software Developer. He is also the Founder of Vault47 Cyber Security."
