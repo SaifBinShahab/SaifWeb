@@ -1,0 +1,1028 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>Saif Bin Shahab - Security</title>
+    <subtitle>Saif Bin Shahab is an experienced Cyber Security Specialist and Software Developer. He is also the Founder of Vault47 Cyber Security.</subtitle>
+    <link rel="self" type="application/atom+xml" href="https://saif-it.pages.dev/tags/security/atom.xml"/>
+    <link rel="alternate" type="text/html" href="https://saif-it.pages.dev"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2025-08-25T00:00:00+00:00</updated>
+    <id>https://saif-it.pages.dev/tags/security/atom.xml</id>
+    <entry xml:lang="en">
+        <title>Securing Apache Webserver</title>
+        <published>2025-08-25T00:00:00+00:00</published>
+        <updated>2025-08-25T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://saif-it.pages.dev/blog/apache-security/"/>
+        <id>https://saif-it.pages.dev/blog/apache-security/</id>
+        
+        <content type="html" xml:base="https://saif-it.pages.dev/blog/apache-security/">&lt;h2 id=&quot;disable-directory-listing&quot;&gt;Disable directory listing.&lt;&#x2F;h2&gt;
+&lt;p&gt;We can do this in 2 different ways one is to configure &lt;code&gt;&#x2F;etc&#x2F;apache2&#x2F;apache2.conf&lt;&#x2F;code&gt;. Or we can also put the config in &lt;code&gt;.htaccess&lt;&#x2F;code&gt; file and put the &lt;code&gt;.htaccess&lt;&#x2F;code&gt; file in the root of the directory we’re protecting (i.e. the wordpress directory).&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;First lets do this with the &lt;code&gt;.htaccess&lt;&#x2F;code&gt; way.&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; vim &#x2F;var&#x2F;www&#x2F;wordpress&#x2F;.htaccess&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-begin z-shell&quot;&gt;#&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt; Append the config below&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;Options&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt;&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; -&lt;&#x2F;span&gt;Indexes&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-begin z-shell&quot;&gt;#&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt; Make the .htaccess readonly.&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; chmod 0444 &#x2F;var&#x2F;www&#x2F;wordpress&#x2F;.htaccess&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; systemctl restart apache2&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt; &lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;Then we’ll see how to do it with apache2.conf.&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; vim &#x2F;etc&#x2F;apache2&#x2F;apache2.conf&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-begin z-shell&quot;&gt;#&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt; In &amp;quot;&amp;lt;Directory &#x2F;var&#x2F;www&#x2F;wordpress&amp;gt;&amp;quot; Append &amp;quot;Options -Indexes&amp;quot; in the config below like this.&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-keyword z-operator z-assignment z-redirection z-shell&quot;&gt;&amp;lt;&lt;&#x2F;span&gt;Directory &lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;&#x2F;var&#x2F;www&#x2F;wordpress&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt;&lt;span class=&quot;z-keyword z-operator z-assignment z-redirection z-shell&quot;&gt;&amp;gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;        &lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;Options&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt;&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; -&lt;&#x2F;span&gt;Indexes&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;        &lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;Options&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; FollowSymLinks&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;        &lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;AllowOverride&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; None&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;        &lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;Require&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; all granted&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-keyword z-operator z-assignment z-redirection z-shell&quot;&gt;&amp;lt;&lt;&#x2F;span&gt;&#x2F;Directory&lt;span class=&quot;z-keyword z-operator z-assignment z-redirection z-shell&quot;&gt;&amp;gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-begin z-shell&quot;&gt;#&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt; We can also put &amp;quot;Options -Indexes&amp;quot; inside &amp;quot;&amp;lt;Directory &#x2F;var&#x2F;www&amp;gt;&amp;quot; to protect that directory.&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt; &lt;&#x2F;p&gt;
+&lt;h2 id=&quot;disable-server-signature-to-prevent-server-information-leak&quot;&gt;Disable Server Signature to prevent server information leak.&lt;&#x2F;h2&gt;
+&lt;p&gt;To do this we can like the previous config do it in two different ways.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;First we’ll see how to do it with apache2.conf.&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; vim &#x2F;etc&#x2F;apache2&#x2F;apache2.conf&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-begin z-shell&quot;&gt;#&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt; In &amp;quot;&amp;lt;Directory &#x2F;var&#x2F;www&#x2F;wordpress&amp;gt;&amp;quot; Append &amp;quot;Options -Indexes&amp;quot; in the config below like this.&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-keyword z-operator z-assignment z-redirection z-shell&quot;&gt;&amp;lt;&lt;&#x2F;span&gt;Directory &lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;&#x2F;var&#x2F;www&#x2F;wordpress&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt;&lt;span class=&quot;z-keyword z-operator z-assignment z-redirection z-shell&quot;&gt;&amp;gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;        &lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;Options&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt;&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; -&lt;&#x2F;span&gt;Indexes&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;        &lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;Options&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; FollowSymLinks&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;        &lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;AllowOverride&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; None&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;        &lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;Require&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; all granted&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;        &lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;ServerSignature&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; off&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-keyword z-operator z-assignment z-redirection z-shell&quot;&gt;&amp;lt;&lt;&#x2F;span&gt;&#x2F;Directory&lt;span class=&quot;z-keyword z-operator z-assignment z-redirection z-shell&quot;&gt;&amp;gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-begin z-shell&quot;&gt;#&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt; We can also put &amp;quot;Options -Indexes&amp;quot; inside &amp;quot;&amp;lt;Directory &#x2F;var&#x2F;www&amp;gt;&amp;quot; to protect that directory.&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt; &lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;Then lets do this with the &lt;code&gt;.htaccess&lt;&#x2F;code&gt; way.&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; vim &#x2F;var&#x2F;www&#x2F;wordpress&#x2F;.htaccess&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-begin z-shell&quot;&gt;#&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt; Append the config below&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;ServerSignature&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; off&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-begin z-shell&quot;&gt;#&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt; Make the .htaccess readonly.&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; chmod 0444 &#x2F;var&#x2F;www&#x2F;wordpress&#x2F;.htaccess&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; systemctl restart apache2&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt; &lt;&#x2F;p&gt;
+&lt;h3 id=&quot;note-according-to-my-experience-when-we-re-mitigating-directory-file-listing-the-htaccess-method-works-better-and-when-we-re-mitigating-server-signature-then-configuring-etc-apache2-apache2-conf-works-better-so-keep-this-in-mind-when-securing-apache-and-try-first-what-is-supposed-to-actually-work-better-then-if-it-doesn-t-work-as-intended-try-the-other-way-inshaa-allah-it-will-work&quot;&gt;Note: According to my experience when we’re mitigating directory file listing, the &lt;code&gt;.htaccess&lt;&#x2F;code&gt; method works better and when we’re mitigating Server Signature, then configuring &lt;code&gt;&#x2F;etc&#x2F;apache2&#x2F;apache2.conf&lt;&#x2F;code&gt; works better. So, keep this in mind when securing Apache. And try first what is supposed to actually work better, then if it doesn’t work as intended try the other way. InShaa Allah it will work.&lt;&#x2F;h3&gt;
+&lt;p&gt; &lt;&#x2F;p&gt;
+&lt;h2 id=&quot;password-protect-a-page-using-apache&quot;&gt;Password Protect a page using apache.&lt;&#x2F;h2&gt;
+&lt;p&gt;For this the “apache2-utils” package is required which we should’ve installed during the wordpress setup. In this example we’re going to protect the &lt;code&gt;wp-login.php&lt;&#x2F;code&gt; page which is under &lt;code&gt;wp-admin&lt;&#x2F;code&gt; directory.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; htpasswd&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; -&lt;&#x2F;span&gt;c&lt;&#x2F;span&gt; &#x2F;etc&#x2F;apache2&#x2F;.htpasswd username&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; vim &#x2F;var&#x2F;www&#x2F;wordpress&#x2F;wp-admin&#x2F;.htaccess&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-begin z-shell&quot;&gt;#&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt; Append the configs&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;AuthName&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; &lt;span class=&quot;z-string z-quoted z-double z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-begin z-shell&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;Admin Login&lt;span class=&quot;z-punctuation z-definition z-string z-end z-shell&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;AuthUserFile&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; &#x2F;etc&#x2F;apache2&#x2F;.htpasswd&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;AuthType&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; Basic&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;Require&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; valid-user&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-begin z-shell&quot;&gt;#&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt; Make the .htaccess readonly.&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; chmod 0444 &#x2F;var&#x2F;www&#x2F;wordpress&#x2F;wp-admin&#x2F;.htaccess&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; systemctl restart apache2&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt; &lt;&#x2F;p&gt;
+&lt;p&gt;Done!&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>SSH Brute Force Protection with Fail2Ban</title>
+        <published>2025-08-25T00:00:00+00:00</published>
+        <updated>2025-08-25T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://saif-it.pages.dev/blog/fail2ban-setup/"/>
+        <id>https://saif-it.pages.dev/blog/fail2ban-setup/</id>
+        
+        <content type="html" xml:base="https://saif-it.pages.dev/blog/fail2ban-setup/">&lt;p&gt;Fail2Ban is an Intrusion Prevention framework written in python which protects any protcol that has an “username” and “password” field. Like SSH, FTP, Telnet an so on.&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;some-pre-checks-optional&quot;&gt;Some pre-checks (Optional)&lt;&#x2F;h1&gt;
+&lt;h2 id=&quot;first-check-ssh-config&quot;&gt;First check SSH config&lt;&#x2F;h2&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; vim &#x2F;etc&#x2F;ssh&#x2F;sshd_config&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;In the SSH config file the line &lt;code&gt;MaxAuthTries&lt;&#x2F;code&gt; is also respected by fail2ban. So, we should also provide the maximum number of failed atemts we want to have. We are going to set the same value in fail2ban config. In this case we are giving it a value of “3”.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;MaxAuthTries&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; 3&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h3 id=&quot;check-the-auth-log-file-check-for-which-filter-to-use&quot;&gt;Check the &lt;code&gt;auth.log&lt;&#x2F;code&gt; file. Check for which filter to use.&lt;&#x2F;h3&gt;
+&lt;p&gt;fail2ban looks at the &lt;code&gt;&#x2F;var&#x2F;log&#x2F;auth.log&lt;&#x2F;code&gt; file to monitor failed login attempts.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;cat&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; &#x2F;var&#x2F;log&#x2F;auth.log&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-operator z-logical z-pipe z-shell&quot;&gt;|&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;grep&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; &lt;span class=&quot;z-string z-quoted z-double z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-begin z-shell&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;sshd
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;In this case we can see grepping for “sshd” gives us the logs for ssh. So, “sshd” will be our filter&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;setup-fail2ban&quot;&gt;Setup fail2ban&lt;&#x2F;h1&gt;
+&lt;h2 id=&quot;install-fail2ban&quot;&gt;Install fail2ban&lt;&#x2F;h2&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; apt install&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; -&lt;&#x2F;span&gt;y&lt;&#x2F;span&gt; fail2ban&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h2 id=&quot;configure-fail2ban&quot;&gt;Configure fail2ban&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;create-fail2ban-jail&quot;&gt;Create fail2ban jail&lt;&#x2F;h3&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; vim &#x2F;etc&#x2F;fail2ban&#x2F;jail.local&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Put the followin config in the &lt;code&gt;jail.local&lt;&#x2F;code&gt; file.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;[sshd]&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;enabled&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; = true&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;port&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; = ssh&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;filter&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; = sshd&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;logpath&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; = &#x2F;var&#x2F;log&#x2F;auth.log&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;maxretry&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; = 3&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;findtime&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; = 300&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;bantime&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; = 3600&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h3 id=&quot;legend&quot;&gt;Legend:&lt;&#x2F;h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;filter&lt;&#x2F;code&gt;: The string to look for in the log file to mintor.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;code&gt;logpath&lt;&#x2F;code&gt;: The log file to monitor.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;code&gt;maxretry&lt;&#x2F;code&gt;: Max number of retries or failed login attemts.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;code&gt;findtime&lt;&#x2F;code&gt;: Max time in seconds between each failed login attempts. If the time is less than this for the failed attempts then it will be considered as a bruteforce attempt.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;code&gt;bantime&lt;&#x2F;code&gt;: The time in seconds for how long the ip will be banned for retrying again.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;Restart the service&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; systemctl restart fail2ban.service&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h2 id=&quot;note&quot;&gt;Note&lt;&#x2F;h2&gt;
+&lt;p&gt;Fail2ban will respect the &lt;code&gt;MaxAuthTries&lt;&#x2F;code&gt; entry in &lt;code&gt;sshd_config&lt;&#x2F;code&gt; file. That’s why it will priorities the &lt;code&gt;sshd_config&lt;&#x2F;code&gt; file before its own jail config. For example,&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Case 1: if &lt;code&gt;MaxAuthTries&lt;&#x2F;code&gt; is set to 6 and fail2ban jail config has &lt;code&gt;maxretry&lt;&#x2F;code&gt; set to 3 then fail2ban will block the ip after 6 auth tries (NOT retries).&lt;&#x2F;li&gt;
+&lt;li&gt;Case 2: On the contrary, if the &lt;code&gt;sshd_config&lt;&#x2F;code&gt; file has &lt;code&gt;MaxAuthTries&lt;&#x2F;code&gt; set to 2 and fail2ban has &lt;code&gt;maxretry&lt;&#x2F;code&gt; set to 3 then fail2ban will block the ip after 2 auth tries (NOT retries).&lt;&#x2F;li&gt;
+&lt;li&gt;Case 3: If we want the ip to be blocked after 3 auth failures&#x2F;tries then we need to set both &lt;code&gt;MaxAuthTries&lt;&#x2F;code&gt; in &lt;code&gt;sshd_config&lt;&#x2F;code&gt; and &lt;code&gt;maxretry&lt;&#x2F;code&gt; in fail2ban jail to 3.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;unban-banned-ips&quot;&gt;Unban banned IPs&lt;&#x2F;h2&gt;
+&lt;p&gt;You can check fail2ban status with:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;fail2ban-client&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; status sshd&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-begin z-shell&quot;&gt;#&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt; It will show banned IPs and stuff.&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;You can unban an IP with:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;fail2ban-client&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; set sshd unbanip 192.168.122.1&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Done!&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Setting up Firewall with IPTables</title>
+        <published>2025-08-25T00:00:00+00:00</published>
+        <updated>2025-08-25T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://saif-it.pages.dev/blog/iptables-setup/"/>
+        <id>https://saif-it.pages.dev/blog/iptables-setup/</id>
+        
+        <content type="html" xml:base="https://saif-it.pages.dev/blog/iptables-setup/">&lt;ul&gt;
+&lt;li&gt;Flush all &lt;code&gt;iptables&lt;&#x2F;code&gt; rules.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; iptables&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; -&lt;&#x2F;span&gt;F&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;ul&gt;
+&lt;li&gt;List all rules.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; iptables&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; -&lt;&#x2F;span&gt;L&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-begin z-shell&quot;&gt;#&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt; With line numbers&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; iptables&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; -&lt;&#x2F;span&gt;L&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; --&lt;&#x2F;span&gt;line-numbers&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;ul&gt;
+&lt;li&gt;Change default &lt;code&gt;INPUT&lt;&#x2F;code&gt; policy from &lt;code&gt;ACCEPT&lt;&#x2F;code&gt; to &lt;code&gt;DROP&lt;&#x2F;code&gt;.
+&lt;em&gt;&lt;strong&gt;WARNING!: MIGHT BLOCK YOUR SSH CONNECTIONS!&lt;&#x2F;strong&gt;&lt;&#x2F;em&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;-P&lt;&#x2F;code&gt; or &lt;code&gt;--policy&lt;&#x2F;code&gt; to set default policy.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; iptables&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; --&lt;&#x2F;span&gt;policy&lt;&#x2F;span&gt; INPUT DROP&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;ul&gt;
+&lt;li&gt;Block All connections from an IP.
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;-I&lt;&#x2F;code&gt; for Inserting the rule. &lt;code&gt;-A&lt;&#x2F;code&gt; to Append.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;code&gt;-s&lt;&#x2F;code&gt; is Source IP.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;code&gt;-j&lt;&#x2F;code&gt; is the Operation&#x2F;Target (&lt;code&gt;ACCEPT&lt;&#x2F;code&gt;&#x2F;&lt;code&gt;DROP&lt;&#x2F;code&gt;&#x2F;&lt;code&gt;REJECT&lt;&#x2F;code&gt;).&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-begin z-shell&quot;&gt;#&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt; Block only one IP&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; iptables&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; -&lt;&#x2F;span&gt;I&lt;&#x2F;span&gt; INPUT&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; -&lt;&#x2F;span&gt;s&lt;&#x2F;span&gt; 10.0.0.11&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; -&lt;&#x2F;span&gt;j&lt;&#x2F;span&gt; DROP&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-begin z-shell&quot;&gt;#&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt; Block an entire subnet&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; iptables&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; -&lt;&#x2F;span&gt;I&lt;&#x2F;span&gt; INPUT&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; -&lt;&#x2F;span&gt;s&lt;&#x2F;span&gt; 10.0.0.11&#x2F;24&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; -&lt;&#x2F;span&gt;j&lt;&#x2F;span&gt; DROP&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;ul&gt;
+&lt;li&gt;Delete rules.
+First list the rules with line numbers to see the line number of the rule you wanna delete.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-begin z-shell&quot;&gt;#&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt; Usage&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; iptables&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; -&lt;&#x2F;span&gt;D&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-operator z-assignment z-redirection z-shell&quot;&gt;&amp;lt;&lt;&#x2F;span&gt;Chain&lt;span class=&quot;z-keyword z-operator z-assignment z-redirection z-shell&quot;&gt;&amp;gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-operator z-assignment z-redirection z-shell&quot;&gt;&amp;lt;&lt;&#x2F;span&gt;Line_Number&lt;span class=&quot;z-keyword z-operator z-assignment z-redirection z-shell&quot;&gt;&amp;gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-begin z-shell&quot;&gt;#&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt; Example&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; iptables&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; -&lt;&#x2F;span&gt;D&lt;&#x2F;span&gt; INPUT 1&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;ul&gt;
+&lt;li&gt;Block all connections to a specific port on the server.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; iptables&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; -&lt;&#x2F;span&gt;I&lt;&#x2F;span&gt; INPUT&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; -&lt;&#x2F;span&gt;p&lt;&#x2F;span&gt; tcp&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; --&lt;&#x2F;span&gt;dport&lt;&#x2F;span&gt; 80&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; -&lt;&#x2F;span&gt;j&lt;&#x2F;span&gt; DROP&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;ul&gt;
+&lt;li&gt;Accept from an IP to a port on the server.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; iptables&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; -&lt;&#x2F;span&gt;I&lt;&#x2F;span&gt; INPUT&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; -&lt;&#x2F;span&gt;p&lt;&#x2F;span&gt; tcp&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; --&lt;&#x2F;span&gt;dport&lt;&#x2F;span&gt; 80&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; -&lt;&#x2F;span&gt;s&lt;&#x2F;span&gt; 10.10.11.213&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; -&lt;&#x2F;span&gt;j&lt;&#x2F;span&gt; ACCEPT&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h2 id=&quot;making-changes-permanent&quot;&gt;Making Changes permanent&lt;&#x2F;h2&gt;
+&lt;p&gt;As IP-Tables are not persistent, they will be deleted (“flushed”) with the next reboot.&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Once you are happy with your ruleset, save the new rules to the master iptables file:&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;iptables-save&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; &lt;span class=&quot;z-keyword z-operator z-assignment z-redirection z-shell&quot;&gt;&amp;gt;&lt;&#x2F;span&gt; &#x2F;etc&#x2F;iptables.up.rules&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;ul&gt;
+&lt;li&gt;To make sure the iptables rules are started on a reboot we’ll create a new file:&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;vim&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; &#x2F;etc&#x2F;network&#x2F;if-pre-up.d&#x2F;iptables&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;ul&gt;
+&lt;li&gt;Add these lines to it:&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt; &lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-begin z-shell&quot;&gt;#&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;!&#x2F;bin&#x2F;sh&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt; &lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;&#x2F;sbin&#x2F;iptables-restore&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; &lt;span class=&quot;z-keyword z-operator z-assignment z-redirection z-shell&quot;&gt;&amp;lt;&lt;&#x2F;span&gt; &#x2F;etc&#x2F;iptables.up.rules&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;ul&gt;
+&lt;li&gt;The file needs to be executable so change the permissions:&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;chmod&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; +x &#x2F;etc&#x2F;network&#x2F;if-pre-up.d&#x2F;iptables&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;ul&gt;
+&lt;li&gt;Rules can be stored something like this:&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;iptables-save&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; &lt;span class=&quot;z-keyword z-operator z-assignment z-redirection z-shell&quot;&gt;&amp;gt;&lt;&#x2F;span&gt; &#x2F;etc&#x2F;iptables&#x2F;rules.v4&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;ip6tables-save&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; &lt;span class=&quot;z-keyword z-operator z-assignment z-redirection z-shell&quot;&gt;&amp;gt;&lt;&#x2F;span&gt; &#x2F;etc&#x2F;iptables&#x2F;rules.v6&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h3 id=&quot;another-way-is-to-use-the-package-iptables-persistent&quot;&gt;Another way is to use the package &lt;code&gt;iptables-persistent&lt;&#x2F;code&gt;.&lt;&#x2F;h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Install it.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; apt install iptables-persistent&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;ul&gt;
+&lt;li&gt;Enable the service.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; systemctl enable netfilter-persistent.service&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; systemctl status netfilter-persistent.service&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h1 id=&quot;useful-rules&quot;&gt;Useful Rules&lt;&#x2F;h1&gt;
+&lt;ul&gt;
+&lt;li&gt;Accepts all established inbound connections (IMPORTANT!)&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; iptables&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; -&lt;&#x2F;span&gt;I&lt;&#x2F;span&gt; INPUT&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; -&lt;&#x2F;span&gt;m&lt;&#x2F;span&gt; state&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; --&lt;&#x2F;span&gt;state&lt;&#x2F;span&gt; ESTABLISHED,RELATED&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; -&lt;&#x2F;span&gt;j&lt;&#x2F;span&gt; ACCEPT&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;ul&gt;
+&lt;li&gt;Allow SSH, HTTP, HTTPS.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; iptables&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; -&lt;&#x2F;span&gt;A&lt;&#x2F;span&gt; INPUT&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; -&lt;&#x2F;span&gt;p&lt;&#x2F;span&gt; tcp&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; -&lt;&#x2F;span&gt;s&lt;&#x2F;span&gt; src_ip&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; --&lt;&#x2F;span&gt;dport&lt;&#x2F;span&gt; 22&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; -&lt;&#x2F;span&gt;j&lt;&#x2F;span&gt; ACCEPT&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; iptables&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; -&lt;&#x2F;span&gt;A&lt;&#x2F;span&gt; INPUT&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; -&lt;&#x2F;span&gt;p&lt;&#x2F;span&gt; tcp&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; --&lt;&#x2F;span&gt;dport&lt;&#x2F;span&gt; 80&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; -&lt;&#x2F;span&gt;j&lt;&#x2F;span&gt; ACCEPT&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; iptables&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; -&lt;&#x2F;span&gt;A&lt;&#x2F;span&gt; INPUT&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; -&lt;&#x2F;span&gt;p&lt;&#x2F;span&gt; tcp&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; --&lt;&#x2F;span&gt;dport&lt;&#x2F;span&gt; 443&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; -&lt;&#x2F;span&gt;j&lt;&#x2F;span&gt; ACCEPT&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;ul&gt;
+&lt;li&gt;Allow ICMP ping (echo).&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Note that blocking other types of icmp packets is considered a bad idea by some
+remove -m icmp –icmp-type 8 from this line to allow all kinds of icmp:
+https:&#x2F;&#x2F;security.stackexchange.com&#x2F;questions&#x2F;22711&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; iptables&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; -&lt;&#x2F;span&gt;A&lt;&#x2F;span&gt; INPUT&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; -&lt;&#x2F;span&gt;p&lt;&#x2F;span&gt; icmp&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; -&lt;&#x2F;span&gt;m&lt;&#x2F;span&gt; icmp&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; --&lt;&#x2F;span&gt;icmp-type&lt;&#x2F;span&gt; 8&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; -&lt;&#x2F;span&gt;j&lt;&#x2F;span&gt; ACCEPT&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;ul&gt;
+&lt;li&gt;Default Deny Input and Allow Output.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; iptables&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; -&lt;&#x2F;span&gt;A&lt;&#x2F;span&gt; OUTPUT&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; -&lt;&#x2F;span&gt;j&lt;&#x2F;span&gt; ACCEPT&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; iptables&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; -&lt;&#x2F;span&gt;A&lt;&#x2F;span&gt; INPUT&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; -&lt;&#x2F;span&gt;j&lt;&#x2F;span&gt; DROP&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; iptables&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; -&lt;&#x2F;span&gt;A&lt;&#x2F;span&gt; FORWARD&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; -&lt;&#x2F;span&gt;j&lt;&#x2F;span&gt; DROP&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Referances:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;wiki.debian.org&#x2F;iptables&quot;&gt;https:&#x2F;&#x2F;wiki.debian.org&#x2F;iptables&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;www.cyberciti.biz&#x2F;faq&#x2F;how-to-save-iptables-firewall-rules-permanently-on-linux&#x2F;&quot;&gt;https:&#x2F;&#x2F;www.cyberciti.biz&#x2F;faq&#x2F;how-to-save-iptables-firewall-rules-permanently-on-linux&#x2F;&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Setting up ModSecurity WAF for Apache Webserver</title>
+        <published>2025-08-25T00:00:00+00:00</published>
+        <updated>2025-08-25T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://saif-it.pages.dev/blog/modsecurity-install-apache/"/>
+        <id>https://saif-it.pages.dev/blog/modsecurity-install-apache/</id>
+        
+        <content type="html" xml:base="https://saif-it.pages.dev/blog/modsecurity-install-apache/">&lt;h2 id=&quot;install-modsecurity&quot;&gt;Install ModSecurity&lt;&#x2F;h2&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; apt install&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; -&lt;&#x2F;span&gt;y&lt;&#x2F;span&gt; libapache2-mod-security2&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt; &lt;&#x2F;p&gt;
+&lt;h2 id=&quot;setup-core-rule-set&quot;&gt;Setup Core Rule Set&lt;&#x2F;h2&gt;
+&lt;p&gt;We can learn more on &lt;a href=&quot;https:&#x2F;&#x2F;coreruleset.org&#x2F;&quot;&gt;Core Rule Set Website&lt;&#x2F;a&gt; and &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;coreruleset&#x2F;coreruleset&quot;&gt;Core Rule Set Github&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;first-backup-the-existing-ruleset&quot;&gt;First backup the existing ruleset&lt;&#x2F;h3&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; mv &#x2F;usr&#x2F;share&#x2F;modsecurity-crs &#x2F;usr&#x2F;share&#x2F;modsecurity-crs-backup&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt; &lt;&#x2F;p&gt;
+&lt;h3 id=&quot;download-or-clone-the-source-and-signature&quot;&gt;Download or clone the source and signature&lt;&#x2F;h3&gt;
+&lt;ul&gt;
+&lt;li&gt;To Download:&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;wget&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; https:&#x2F;&#x2F;github.com&#x2F;coreruleset&#x2F;coreruleset&#x2F;archive&#x2F;refs&#x2F;tags&#x2F;v4.5.0.tar.gz&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;wget&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; https:&#x2F;&#x2F;github.com&#x2F;coreruleset&#x2F;coreruleset&#x2F;releases&#x2F;download&#x2F;v4.5.0&#x2F;coreruleset-4.5.0.tar.gz.asc&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;ul&gt;
+&lt;li&gt;To clone:&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;git&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; clone https:&#x2F;&#x2F;github.com&#x2F;coreruleset&#x2F;coreruleset.git&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt; &lt;&#x2F;p&gt;
+&lt;h3 id=&quot;verify-signatures&quot;&gt;Verify Signatures&lt;&#x2F;h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Import GPG Keys:
+To retrieve the CRS project’s public key from public key servers using &lt;code&gt;gpg&lt;&#x2F;code&gt;, execute: &lt;code&gt;gpg --keyserver pgp.mit.edu --recv 0x38EEACA1AB8A6E72&lt;&#x2F;code&gt;(this ID should be equal to the last sixteen hex characters in the fingerprint).&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;It is also possible to use &lt;code&gt;gpg --fetch-key https:&#x2F;&#x2F;coreruleset.org&#x2F;security.asc&lt;&#x2F;code&gt; to retrieve the key directly.
+ &lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;To verify the integrity of the release:&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;gpg&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt;&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; --&lt;&#x2F;span&gt;verify&lt;&#x2F;span&gt; coreruleset-4.5.0.tar.gz.asc v4.5.0.tar.gz&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;This should return:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;gpg:&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; Signature made Wed Jun 30 10:05:48 2021&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; -&lt;&#x2F;span&gt;03&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;gpg:&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt;                using RSA key 36006F0E0BA167832158821138EEACA1AB8A6E72&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;gpg:&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; Good signature from &lt;span class=&quot;z-string z-quoted z-double z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-begin z-shell&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;OWASP CRS &amp;lt;security@coreruleset.org&amp;gt;&lt;span class=&quot;z-punctuation z-definition z-string z-end z-shell&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-control z-regexp z-set z-begin z-shell&quot;&gt;[&lt;&#x2F;span&gt;unknown&lt;span class=&quot;z-keyword z-control z-regexp z-set z-end z-shell&quot;&gt;]&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;gpg:&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; WARNING: This key is not certified with a trusted signature!&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;gpg:&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt;          There is no indication that the signature belongs to the owner.&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;Primary&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; key fingerprint: 3600 6F0E 0BA1 6783 2158  8211 38EE ACA1 AB8A 6E72&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;If the signature was good then the verification succeeds. If a warning is displayed, like the above, it means the CRS project’s public key is known but is not trusted.
+ &lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;To trust the CRS project’s public key:&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;gpg&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt;&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; --&lt;&#x2F;span&gt;edit-key&lt;&#x2F;span&gt; 36006F0E0BA167832158821138EEACA1AB8A6E72&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;gpg&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt;&lt;span class=&quot;z-keyword z-operator z-assignment z-redirection z-shell&quot;&gt;&amp;gt;&lt;&#x2F;span&gt; trust&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;Your&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; decision: 5 (ultimate trust&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;&#x2F;span&gt;)
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;Are&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; you sure: Yes&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;gpg&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt;&lt;span class=&quot;z-keyword z-operator z-assignment z-redirection z-shell&quot;&gt;&amp;gt;&lt;&#x2F;span&gt; quit&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt; &lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;The result when verifying a release will then look like so:&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;gpg&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt;&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; --&lt;&#x2F;span&gt;verify&lt;&#x2F;span&gt; coreruleset-4.5.0.tar.gz.asc v4.5.0.tar.gz&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;gpg:&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; Signature made Wed Jun 30 15:05:48 2021 CEST&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;gpg:&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt;                using RSA key 36006F0E0BA167832158821138EEACA1AB8A6E72&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;gpg:&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; Good signature from &lt;span class=&quot;z-string z-quoted z-double z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-begin z-shell&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;OWASP CRS &amp;lt;security@coreruleset.org&amp;gt;&lt;span class=&quot;z-punctuation z-definition z-string z-end z-shell&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-control z-regexp z-set z-begin z-shell&quot;&gt;[&lt;&#x2F;span&gt;ultimate&lt;span class=&quot;z-keyword z-control z-regexp z-set z-end z-shell&quot;&gt;]&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt; &lt;&#x2F;p&gt;
+&lt;h3 id=&quot;extract-core-rule-set&quot;&gt;Extract Core Rule Set&lt;&#x2F;h3&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; tar&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; -&lt;&#x2F;span&gt;xzvf&lt;&#x2F;span&gt; v4.5.0.tar.gz&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; --&lt;&#x2F;span&gt;strip-components&lt;&#x2F;span&gt; 1&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; -&lt;&#x2F;span&gt;C&lt;&#x2F;span&gt; &#x2F;usr&#x2F;share&#x2F;modsecurity-crs&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt; &lt;&#x2F;p&gt;
+&lt;h3 id=&quot;activating-the-crs&quot;&gt;Activating the CRS&lt;&#x2F;h3&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; mkdir &#x2F;usr&#x2F;share&#x2F;modsecurity-crs&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; mv &#x2F;usr&#x2F;share&#x2F;modsecurity-crs&#x2F;crs-setup.conf.example &#x2F;usr&#x2F;share&#x2F;modsecurity-crs&#x2F;crs-setup.conf&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;Note: We could also setup the crs in &lt;code&gt;&#x2F;etc&#x2F;crs&lt;&#x2F;code&gt; instead of &lt;code&gt;&#x2F;usr&#x2F;share&#x2F;modsecurity-crs&lt;&#x2F;code&gt;.&lt;&#x2F;strong&gt;&lt;&#x2F;em&gt;
+ &lt;&#x2F;p&gt;
+&lt;h4 id=&quot;optional&quot;&gt;(Optional)&lt;&#x2F;h4&gt;
+&lt;p&gt;In addition to crs-setup.conf.example, there are two other “.example” files within the CRS repository. These are:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;rules&#x2F;REQUEST-900-EXCLUSION-RULES-BEFORE-CRS.conf.example&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;rules&#x2F;RESPONSE-999-EXCLUSION-RULES-AFTER-CRS.conf.example&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;These files are designed to provide the rule maintainer with the ability to modify rules (see false positives and tuning) without breaking forward compatibility with rule set updates. These two files should be renamed by removing the .example suffix. &lt;strong&gt;This will mean that installing updates will &lt;em&gt;not&lt;&#x2F;em&gt; overwrite custom rule exclusions&lt;&#x2F;strong&gt;. To rename the files in Linux, use a command similar to the following:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; mv rules&#x2F;REQUEST-900-EXCLUSION-RULES-BEFORE-CRS.conf.example rules&#x2F;REQUEST-900-EXCLUSION-RULES-BEFORE-CRS.conf&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; mv rules&#x2F;RESPONSE-999-EXCLUSION-RULES-AFTER-CRS.conf.example rules&#x2F;RESPONSE-999-EXCLUSION-RULES-AFTER-CRS.conf&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt; &lt;&#x2F;p&gt;
+&lt;h2 id=&quot;configuring-and-setting-up-modsecurity&quot;&gt;Configuring and Setting Up ModSecurity&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;activate-the-config&quot;&gt;Activate the config&lt;&#x2F;h3&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; mv &#x2F;etc&#x2F;modsecurity&#x2F;modsecurity.conf-recommended &#x2F;etc&#x2F;modsecurity&#x2F;modsecurity.conf&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;&amp;amp;nbsp:&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;configure-apache&quot;&gt;Configure Apache&lt;&#x2F;h3&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; vim &#x2F;etc&#x2F;apache2&#x2F;apache2.conf&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-begin z-shell&quot;&gt;#&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt; We can put these configs the very beginning of the config. You can try a different place if it causes any isues.&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-keyword z-operator z-assignment z-redirection z-shell&quot;&gt;&amp;lt;&lt;&#x2F;span&gt;IfModule &lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;security2_module&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt;&lt;span class=&quot;z-keyword z-operator z-assignment z-redirection z-shell&quot;&gt;&amp;gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;	&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;Include&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; &#x2F;etc&#x2F;modsecurity&#x2F;modsecurity.conf&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;	&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;Include&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; &#x2F;usr&#x2F;share&#x2F;modsecurity-crs&#x2F;crs-setup.conf&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;	&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;Include&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; &#x2F;usr&#x2F;share&#x2F;modsecurity-crs&#x2F;rules&#x2F;&lt;span class=&quot;z-keyword z-operator z-regexp z-quantifier z-shell&quot;&gt;*&lt;&#x2F;span&gt;.conf&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-keyword z-operator z-assignment z-redirection z-shell&quot;&gt;&amp;lt;&lt;&#x2F;span&gt;&#x2F;IfModule&lt;span class=&quot;z-keyword z-operator z-assignment z-redirection z-shell&quot;&gt;&amp;gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt; &lt;&#x2F;p&gt;
+&lt;p&gt;Also it’s a good practice to include similar configs in the apache default sites-enabled config file.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; vim &#x2F;etc&#x2F;apache2&#x2F;sites-enabled&#x2F;000-default.conf&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-begin z-shell&quot;&gt;#&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt; Now put the configs here. We can put the configs After &amp;quot;DocumentRoot&amp;quot; Inside &amp;quot;&amp;lt;VirtualHost *:80&amp;gt;&amp;quot;.&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-begin z-shell&quot;&gt;#&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt; Note: In this config we didn&amp;#39;t include &amp;quot;&#x2F;etc&#x2F;modsecurity&#x2F;modsecurity.conf&amp;quot; because in our testing it was proving to be a misconfiguration.&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-keyword z-operator z-assignment z-redirection z-shell&quot;&gt;&amp;lt;&lt;&#x2F;span&gt;IfModule &lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;security2_module&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt;&lt;span class=&quot;z-keyword z-operator z-assignment z-redirection z-shell&quot;&gt;&amp;gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;	&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;Include&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; &#x2F;usr&#x2F;share&#x2F;modsecurity-crs&#x2F;crs-setup.conf&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;	&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;Include&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; &#x2F;usr&#x2F;share&#x2F;modsecurity-crs&#x2F;rules&#x2F;&lt;span class=&quot;z-keyword z-operator z-regexp z-quantifier z-shell&quot;&gt;*&lt;&#x2F;span&gt;.conf&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-keyword z-operator z-assignment z-redirection z-shell&quot;&gt;&amp;lt;&lt;&#x2F;span&gt;&#x2F;IfModule&lt;span class=&quot;z-keyword z-operator z-assignment z-redirection z-shell&quot;&gt;&amp;gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt; &lt;&#x2F;p&gt;
+&lt;h3 id=&quot;activate-modsecurity&quot;&gt;Activate ModSecurity&lt;&#x2F;h3&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; vim &#x2F;etc&#x2F;modsecurity&#x2F;modsecurity.conf&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-begin z-shell&quot;&gt;#&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt; Change the config from &amp;quot;SecRuleEngine DetectionOnly&amp;quot; to &amp;quot;SecRuleEngine On&amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;SecRuleEngine&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; On&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt; &lt;&#x2F;p&gt;
+&lt;h2 id=&quot;now-restart-apache&quot;&gt;Now Restart Apache&lt;&#x2F;h2&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; systemctl restart apache2&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt; &lt;&#x2F;p&gt;
+&lt;h2 id=&quot;now-we-can-test-the-security-recommended&quot;&gt;Now we can test the security. (Recommended)&lt;&#x2F;h2&gt;
+&lt;p&gt;Always verify that CRS is installed correctly by sending a ‘malicious’ request to your site or application, for instance:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;curl&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; &lt;span class=&quot;z-string z-quoted z-single z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-begin z-shell&quot;&gt;&amp;#39;&lt;&#x2F;span&gt;https:&#x2F;&#x2F;www.example.com&#x2F;?foo=&#x2F;etc&#x2F;passwd&amp;amp;bar=&#x2F;bin&#x2F;sh&lt;span class=&quot;z-punctuation z-definition z-string z-end z-shell&quot;&gt;&amp;#39;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Depending on your configurated thresholds, this should be detected as a malicious request. If you use blocking mode, you should receive an Error 403. The request should also be logged to the audit log, which is usually in &lt;code&gt;&#x2F;var&#x2F;log&#x2F;modsec_audit.log&lt;&#x2F;code&gt;.
+ &lt;&#x2F;p&gt;
+&lt;p&gt;Done!&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Setting up ModSecurity WAF for Nginx Webserver</title>
+        <published>2025-08-25T00:00:00+00:00</published>
+        <updated>2025-08-25T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://saif-it.pages.dev/blog/modsecurity-install-nginx/"/>
+        <id>https://saif-it.pages.dev/blog/modsecurity-install-nginx/</id>
+        
+        <content type="html" xml:base="https://saif-it.pages.dev/blog/modsecurity-install-nginx/">&lt;h2 id=&quot;note-we-need-to-perform-all-of-these-on-the-server-that-we-re-installing-modsecurity-for&quot;&gt;Note we need to perform all of these on the “server” that we’re installing ModSecurity for.&lt;&#x2F;h2&gt;
+&lt;p&gt; &lt;&#x2F;p&gt;
+&lt;h2 id=&quot;install-and-check-the-nginx-version&quot;&gt;Install and check the nginx version&lt;&#x2F;h2&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; apt install&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; -&lt;&#x2F;span&gt;y&lt;&#x2F;span&gt; nginx&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-begin z-shell&quot;&gt;#&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt; Check the version&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;nginx&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt;&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; -&lt;&#x2F;span&gt;v&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;It should give similar results like the following:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;ubnt@ubnt:&lt;span class=&quot;z-meta z-group z-expansion z-tilde&quot;&gt;&lt;span class=&quot;z-variable z-language z-tilde z-shell&quot;&gt;~&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;$&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; nginx&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; -&lt;&#x2F;span&gt;v&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;nginx&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; version: nginx&#x2F;1.24.0 (Ubuntu&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;&#x2F;span&gt;)
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;We can see it’s version is &lt;code&gt;1.24.0&lt;&#x2F;code&gt;. We need to keep this in mind because we’re going to build &lt;code&gt;ModSecurity&lt;&#x2F;code&gt; for this version of nginx.
+ &lt;&#x2F;p&gt;
+&lt;h2 id=&quot;install-build-tools&quot;&gt;Install build tools&lt;&#x2F;h2&gt;
+&lt;p&gt;We need to install some build tools to build ModSecurity from source.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; apt install&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; -&lt;&#x2F;span&gt;y&lt;&#x2F;span&gt; bison build-essential ca-certificates curl dh-autoreconf doxygen flex gawk git iputils-ping libcurl4-gnutls-dev libexpat1-dev libgeoip-dev liblmdb-dev libpcre3-dev libpcrecpp0v5 libssl-dev libtool libxml2 libxml2-dev libyajl-dev locales lua5.3 liblua5.3-dev pkg-config wget zlib1g zlib1g-dev libgd-dev&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; snap install libxslt&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt; &lt;&#x2F;p&gt;
+&lt;h2 id=&quot;build-modsecurity&quot;&gt;Build ModSecurity&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Clone the ModSecurity Github repository in &lt;code&gt;&#x2F;opt&lt;&#x2F;code&gt; directory&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-support z-function z-cd z-shell&quot;&gt;cd&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; &#x2F;opt&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; git clone https:&#x2F;&#x2F;github.com&#x2F;owasp-modsecurity&#x2F;ModSecurity&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt; &lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;cd&lt;&#x2F;code&gt; into &lt;code&gt;ModSecurity&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-support z-function z-cd z-shell&quot;&gt;cd&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; ModSecurity&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt; &lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Run the &lt;code&gt;.&#x2F;build&lt;&#x2F;code&gt; script&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; .&#x2F;build&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt; &lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Run the &lt;code&gt;.&#x2F;configure&lt;&#x2F;code&gt; file, which is responsible for getting all the dependencies for the build process:&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; .&#x2F;configure&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt; &lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Run the &lt;code&gt;make&lt;&#x2F;code&gt; command to build ModSecurity:&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; make&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt; &lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;After the build process is complete, install ModSecurity by running the following command:&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; make install&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt; &lt;&#x2F;p&gt;
+&lt;h3 id=&quot;downloading-modsecurity-nginx-connector&quot;&gt;Downloading ModSecurity-Nginx Connector&lt;&#x2F;h3&gt;
+&lt;p&gt;Before compiling the ModSecurity module, clone the Nginx-connector from the &lt;code&gt;&#x2F;opt&lt;&#x2F;code&gt;directory:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-support z-function z-cd z-shell&quot;&gt;cd&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; &#x2F;opt&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; git clone&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; --&lt;&#x2F;span&gt;depth&lt;&#x2F;span&gt; 1 https:&#x2F;&#x2F;github.com&#x2F;owasp-modsecurity&#x2F;ModSecurity-nginx.git&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt; &lt;&#x2F;p&gt;
+&lt;h3 id=&quot;building-the-modsecurity-module-for-nginx&quot;&gt;Building the ModSecurity Module For Nginx&lt;&#x2F;h3&gt;
+&lt;p&gt;You can now build the ModSecurity module from a downloaded copy of your Nginx version by following the steps outlined below:&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Securing Nginx Webserver</title>
+        <published>2025-08-25T00:00:00+00:00</published>
+        <updated>2025-08-25T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://saif-it.pages.dev/blog/nginx-security/"/>
+        <id>https://saif-it.pages.dev/blog/nginx-security/</id>
+        
+        <content type="html" xml:base="https://saif-it.pages.dev/blog/nginx-security/">&lt;h2 id=&quot;nginx-default-configuration-file&quot;&gt;Nginx default Configuration File&lt;&#x2F;h2&gt;
+&lt;p&gt;It is located in &lt;code&gt;&#x2F;etc&#x2F;nginx&#x2F;nginx.conf&lt;&#x2F;code&gt;.
+ &lt;&#x2F;p&gt;
+&lt;h2 id=&quot;disble-server-information-leak&quot;&gt;Disble Server information leak&lt;&#x2F;h2&gt;
+&lt;p&gt;To do this we’re gonna vim into  &lt;code&gt;&#x2F;etc&#x2F;nginx&#x2F;nginx.conf&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; vim &#x2F;etc&#x2F;nginx&#x2F;nginx.conf&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-begin z-shell&quot;&gt;#&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt; And uncomment &amp;quot;server_tokens off&amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;server_tokens&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; off&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt; &lt;&#x2F;p&gt;
+&lt;h2 id=&quot;disble-server-signature-and-click-jacking-attack&quot;&gt;Disble Server Signature and Click Jacking Attack&lt;&#x2F;h2&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; vim &#x2F;etc&#x2F;nginx&#x2F;nginx.conf&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-begin z-shell&quot;&gt;#&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt; Add the config before &amp;quot;Virtual Hosts Config&amp;quot;.&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;proxy_hide_header&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt;       X-Powered-By&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator z-logical z-continue z-shell&quot;&gt;;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;add_header&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt;      X-Frame_options SAMEORIGIN&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator z-logical z-continue z-shell&quot;&gt;;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt; &lt;&#x2F;p&gt;
+&lt;p&gt;The &lt;code&gt;proxy_hide_header&lt;&#x2F;code&gt; disables Server Signature and the &lt;code&gt;add_header&lt;&#x2F;code&gt; disables “iframing” of our website prevententing Click Jacking Attacks.
+ &lt;&#x2F;p&gt;
+&lt;h2 id=&quot;protect-webpages-with-password&quot;&gt;Protect webpages with password&lt;&#x2F;h2&gt;
+&lt;p&gt;We’re gonna do this with &lt;code&gt;htpasswd&lt;&#x2F;code&gt; which is a part of &lt;code&gt;apache2-utils&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; htpasswd&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; -&lt;&#x2F;span&gt;c&lt;&#x2F;span&gt; &#x2F;etc&#x2F;nginx&#x2F;.htpasswd username&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-begin z-shell&quot;&gt;#&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt; Then inside the &amp;quot;Virtual Hosts Config&amp;quot; section of the &amp;quot;&#x2F;etc&#x2F;nginx&#x2F;nginx.conf&amp;quot; file or the seperate virtual hosts config file.&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-begin z-shell&quot;&gt;#&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt; For the authentication, inside &amp;quot;server&amp;quot; section we need to have the following config.&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;auth_basic&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt;	&lt;span class=&quot;z-string z-quoted z-double z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-begin z-shell&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;Dev Team Only&lt;span class=&quot;z-punctuation z-definition z-string z-end z-shell&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator z-logical z-continue z-shell&quot;&gt;;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;auth_basic_user_file&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt;	&#x2F;etc&#x2F;nginx&#x2F;.htpasswd&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator z-logical z-continue z-shell&quot;&gt;;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-begin z-shell&quot;&gt;#&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt; And inside &amp;quot;location&amp;quot; section&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;auth_basic&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt;	on&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator z-logical z-continue z-shell&quot;&gt;;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt; &lt;&#x2F;p&gt;
+&lt;p&gt;So, the final config of the Virtual Hosts Config should look something like this. This is bare minumum sample config btw.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;server&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; &lt;span class=&quot;z-meta z-group z-expansion z-brace z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-expansion z-brace z-begin z-shell&quot;&gt;{&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt;&lt;span class=&quot;z-meta z-group z-expansion z-brace z-shell&quot;&gt;listen	80;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt;&lt;span class=&quot;z-meta z-group z-expansion z-brace z-shell&quot;&gt;server_name	localhost;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt;&lt;span class=&quot;z-meta z-group z-expansion z-brace z-shell&quot;&gt;auth_basic	&lt;span class=&quot;z-string z-quoted z-double z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-begin z-shell&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;Dev Team Only&lt;span class=&quot;z-punctuation z-definition z-string z-end z-shell&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt;&lt;span class=&quot;z-meta z-group z-expansion z-brace z-shell&quot;&gt;auth_basic_user_file	&#x2F;etc&#x2F;nginx&#x2F;.htpasswd;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt;&lt;span class=&quot;z-meta z-group z-expansion z-brace z-shell&quot;&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt;&lt;span class=&quot;z-meta z-group z-expansion z-brace z-shell&quot;&gt;location &#x2F;var&#x2F;www&#x2F;html &lt;span class=&quot;z-meta z-group z-expansion z-brace z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-expansion z-brace z-begin z-shell&quot;&gt;{&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt;&lt;span class=&quot;z-meta z-group z-expansion z-brace z-shell&quot;&gt;&lt;span class=&quot;z-meta z-group z-expansion z-brace z-shell&quot;&gt;		auth_basic	on;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt;&lt;span class=&quot;z-meta z-group z-expansion z-brace z-shell&quot;&gt;&lt;span class=&quot;z-meta z-group z-expansion z-brace z-shell&quot;&gt;		root &#x2F;var&#x2F;www&#x2F;html;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt;&lt;span class=&quot;z-meta z-group z-expansion z-brace z-shell&quot;&gt;&lt;span class=&quot;z-meta z-group z-expansion z-brace z-shell&quot;&gt;	&lt;span class=&quot;z-punctuation z-section z-expansion z-brace z-end z-shell&quot;&gt;}&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt;&lt;span class=&quot;z-meta z-group z-expansion z-brace z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-expansion z-brace z-end z-shell&quot;&gt;}&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt; &lt;&#x2F;p&gt;
+&lt;p&gt;Done!&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Securing the root account on a Linux server</title>
+        <published>2025-08-25T00:00:00+00:00</published>
+        <updated>2025-08-25T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://saif-it.pages.dev/blog/root-account-security-linux/"/>
+        <id>https://saif-it.pages.dev/blog/root-account-security-linux/</id>
+        
+        <content type="html" xml:base="https://saif-it.pages.dev/blog/root-account-security-linux/">&lt;h2 id=&quot;give-the-user-administrative-privileges&quot;&gt;Give the user administrative privileges&lt;&#x2F;h2&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-begin z-shell&quot;&gt;#&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt; Add the user &amp;quot;dev&amp;quot; to the sudo group&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;usermod&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt;&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; -&lt;&#x2F;span&gt;aG&lt;&#x2F;span&gt; sudo dev&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h2 id=&quot;disable-the-root-account&quot;&gt;Disable the Root account&lt;&#x2F;h2&gt;
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;WARNING! PROCEED WITH CAUTION! MAKE SURE YOU HAVE ANOTHER USER SETUP AS A SUDOER BEFORE PROCEEDING. OTHERWISE, YOU MAY LOOSE ADMINISTRATIVE ACCESS!&lt;&#x2F;strong&gt;&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;lockdown-the-root-account-not-recommended&quot;&gt;Lockdown the Root account (Not Recommended)&lt;&#x2F;h3&gt;
+&lt;p&gt;&lt;strong&gt;Prevents local login.&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;This method locks the root account and prevents user switching to the root account locally. Basically, it prevents password based logging in. Only way someone can access the rooot account is via valid SSH keys that has been setup previously.&lt;&#x2F;strong&gt;&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-begin z-shell&quot;&gt;#&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt; Lock the root account&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; passwd&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; -&lt;&#x2F;span&gt;l&lt;&#x2F;span&gt; root&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-begin z-shell&quot;&gt;#&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt; Unlock it&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; passwd&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; -&lt;&#x2F;span&gt;u&lt;&#x2F;span&gt; root&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h3 id=&quot;by-disabling-the-shell&quot;&gt;By disabling the Shell&lt;&#x2F;h3&gt;
+&lt;p&gt;&lt;strong&gt;Prevents local and remote login.&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-begin z-shell&quot;&gt;#&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt; Change the shell to &amp;quot;&#x2F;usr&#x2F;sbin&#x2F;nologin&amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; chsh root&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-begin z-shell&quot;&gt;#&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt; provide &amp;quot;&#x2F;usr&#x2F;sbin&#x2F;nologin&amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;Changing&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; the login shell for root&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;Enter&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; the new value, or press ENTER for the default&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;        &lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;Login&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; Shell &lt;span class=&quot;z-keyword z-control z-regexp z-set z-begin z-shell&quot;&gt;[&lt;&#x2F;span&gt;&#x2F;bin&#x2F;bash&lt;span class=&quot;z-keyword z-control z-regexp z-set z-end z-shell&quot;&gt;]&lt;&#x2F;span&gt;: &#x2F;usr&#x2F;sbin&#x2F;nologin&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-begin z-shell&quot;&gt;#&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt; To undo the changes and re-enable the root account. Change the shell manually in the &amp;quot;&#x2F;etc&#x2F;passwd&amp;quot; file.&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; vim &#x2F;etc&#x2F;passwd&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-begin z-shell&quot;&gt;#&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt; The line should look lilke this&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;root:x:0:0:root:&#x2F;root:&#x2F;bin&#x2F;bash&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>SSH Security</title>
+        <published>2025-08-25T00:00:00+00:00</published>
+        <updated>2025-08-25T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://saif-it.pages.dev/blog/ssh-security/"/>
+        <id>https://saif-it.pages.dev/blog/ssh-security/</id>
+        
+        <content type="html" xml:base="https://saif-it.pages.dev/blog/ssh-security/">&lt;h2 id=&quot;create-another-user&quot;&gt;Create another user&lt;&#x2F;h2&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;useradd&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt;&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; -&lt;&#x2F;span&gt;m&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; -&lt;&#x2F;span&gt;s&lt;&#x2F;span&gt; &#x2F;bin&#x2F;bash dev&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;passwd &lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-begin z-shell&quot;&gt;#&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt; Set a strong password&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-begin z-shell&quot;&gt;#&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt; switch to dev user&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;su&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; dev&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-begin z-shell&quot;&gt;#&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt; switch to root user&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;su&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; root - &lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-begin z-shell&quot;&gt;#&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt; the &amp;quot;-&amp;quot; is good to include to initialize the shell properly. it is optional though.&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h2 id=&quot;disable-remote-root-login&quot;&gt;Disable remote root login&lt;&#x2F;h2&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; vim &#x2F;etc&#x2F;ssh&#x2F;sshd_config&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-begin z-shell&quot;&gt;#&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt; find the line that says &amp;quot;PermitRootLogin&amp;quot; and set it to no. And save it.&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;PermitRootLogin&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; no&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-begin z-shell&quot;&gt;#&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt; Restart ssh service to reload the config&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; systemctl restart ssh&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h2 id=&quot;securing-using-ssh-keys&quot;&gt;Securing using SSH Keys&lt;&#x2F;h2&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-begin z-shell&quot;&gt;#&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt; on the client machine&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-begin z-shell&quot;&gt;#&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt; using a newer algorithm&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;ssh-keygen&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt;&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; -&lt;&#x2F;span&gt;t&lt;&#x2F;span&gt; ed25519&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-begin z-shell&quot;&gt;#&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt; using rsa&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;ssh-keygen&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt;&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; -&lt;&#x2F;span&gt;t&lt;&#x2F;span&gt; rsa&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; -&lt;&#x2F;span&gt;b&lt;&#x2F;span&gt; 4096&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-begin z-shell&quot;&gt;#&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt; transfer the public key to the server securely&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;ssh-copy-id&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; dev@192.168.122.246&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-begin z-shell&quot;&gt;#&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt; or, if you&amp;#39;ve provided custom keypair name, you have to provide the entire path of the key file.&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;ssh-copy-id&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt;&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; -&lt;&#x2F;span&gt;i&lt;&#x2F;span&gt; &#x2F;home&#x2F;john&#x2F;.ssh&#x2F;ubnt_server.pub dev@192.168.122.246&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h2 id=&quot;disable-password-authentication&quot;&gt;Disable Password Authentication&lt;&#x2F;h2&gt;
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;&lt;code&gt;WARNING! BEFORE PROCEEDING MAKE SURE YOUR SSH KEYS BASED AUTHENTICATION IS WORKING PROPERLY. OTHERWISE DO NOT PROCEED. YOU MAY LOOSE ACCESS TO THE SERVER!&lt;&#x2F;code&gt;&lt;&#x2F;strong&gt;&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; vim &#x2F;etc&#x2F;ssh&#x2F;sshd_config&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-begin z-shell&quot;&gt;#&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt; Find the line &amp;quot;PasswordAuthentication&amp;quot; and set it to &amp;quot;no&amp;quot;. And save it&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;PasswordAuthentication&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; no&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Setting up firewall with UFW on Linux</title>
+        <published>2025-08-25T00:00:00+00:00</published>
+        <updated>2025-08-25T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://saif-it.pages.dev/blog/ufw-setup/"/>
+        <id>https://saif-it.pages.dev/blog/ufw-setup/</id>
+        
+        <content type="html" xml:base="https://saif-it.pages.dev/blog/ufw-setup/">&lt;h2 id=&quot;check-ufw-status&quot;&gt;Check UFW status&lt;&#x2F;h2&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; ufw status&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;It may return status active or inactive depending on the default config. If it is already active then disable it first.&lt;&#x2F;p&gt;
+&lt;p&gt;Btw, the default ufw config is located in &lt;code&gt;&#x2F;etc&#x2F;default&#x2F;ufw&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;disable-ufw&quot;&gt;Disable UFW&lt;&#x2F;h2&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; ufw disable&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; systemctl stop ufw&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;It will disable the firewall for now. Now if the firewall was active and it had some preconfigured rules, we need to reset everything to start with a clean environment.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;reset-the-firewall-rules-proceed-with-caution&quot;&gt;Reset the firewall rules (PROCEED WITH CAUTION!)&lt;&#x2F;h2&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; ufw reset&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h2 id=&quot;configure-ufw&quot;&gt;Configure UFW&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;default-incoming-and-outgoing&quot;&gt;Default incoming and outgoing&lt;&#x2F;h3&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; ufw default deny incoming&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; ufw default allow outgoing&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h3 id=&quot;allow-ssh-connection&quot;&gt;Allow SSH connection&lt;&#x2F;h3&gt;
+&lt;p&gt;We can use both the name “ssh” or the port number “22”&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; ufw allow ssh&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h3 id=&quot;allow-http-and-https-connections&quot;&gt;Allow HTTP and HTTPS connections&lt;&#x2F;h3&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; ufw allow http&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; ufw allow https&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h2 id=&quot;some-tests-or-pratices-with-defferent-scenarios-optional&quot;&gt;Some Tests or Pratices with defferent scenarios (Optional)&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;we-can-allow-deny-ftp&quot;&gt;We can Allow&#x2F;Deny FTP&lt;&#x2F;h3&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; ufw allow ftp&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; ufw deny ftp&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h3 id=&quot;allow-deny-traffic-only-from-a-specific-ip-address&quot;&gt;Allow&#x2F;Deny traffic only from a specific IP address&lt;&#x2F;h3&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; ufw allow from 10.0.0.1&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; ufw deny from 10.0.0.1&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h3 id=&quot;allow-ssh-connection-only-from-a-specific-ip&quot;&gt;Allow SSH connection only from a specific IP&lt;&#x2F;h3&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; ufw allow from 10.0.0.1 to any port 22&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;We can also specify an entire subnet like:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; ufw allow from 10.0.0.1&#x2F;24 to any port 22&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h2 id=&quot;enable-ufw&quot;&gt;Enable UFW&lt;&#x2F;h2&gt;
+&lt;p&gt;After configuring UFW we need to enable it to take efffect.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; systemctl start ufw&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; ufw enable&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h2 id=&quot;managing-ufw-rules&quot;&gt;Managing UFW rules&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;print-the-status-or-rules-in-numbered-format&quot;&gt;Print the status or rules in numbered format&lt;&#x2F;h3&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; ufw status numbered&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;It shows an output similar to the following:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;Status:&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; active&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;     &lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;To&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt;                         Action      From&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;     &lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;--&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt;                         ------      ----&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-support z-function z-test z-begin z-shell&quot;&gt;[&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; 1] 22&#x2F;tcp                     ALLOW IN    Anywhere&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-support z-function z-test z-begin z-shell&quot;&gt;[&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; 2] 80&#x2F;tcp                     ALLOW IN    Anywhere&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-support z-function z-test z-begin z-shell&quot;&gt;[&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; 3] 443                        ALLOW IN    Anywhere&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-support z-function z-test z-begin z-shell&quot;&gt;[&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; 4] 21&#x2F;tcp                     ALLOW IN    Anywhere&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-support z-function z-test z-begin z-shell&quot;&gt;[&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; 5] 22                         ALLOW IN    10.0.0.0&#x2F;24&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-support z-function z-test z-begin z-shell&quot;&gt;[&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; 6] 22&#x2F;tcp (v6&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;&#x2F;span&gt;)                &lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;ALLOW&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; IN    Anywhere (v6&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;&#x2F;span&gt;)
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-support z-function z-test z-begin z-shell&quot;&gt;[&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; 7] 80&#x2F;tcp (v6&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;&#x2F;span&gt;)                &lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;ALLOW&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; IN    Anywhere (v6&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;&#x2F;span&gt;)
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-support z-function z-test z-begin z-shell&quot;&gt;[&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; 8] 443 (v6&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;&#x2F;span&gt;)                   &lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;ALLOW&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; IN    Anywhere (v6&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;&#x2F;span&gt;)
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-support z-function z-test z-begin z-shell&quot;&gt;[&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; 9] 21&#x2F;tcp (v6&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;&#x2F;span&gt;)                &lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;ALLOW&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; IN    Anywhere (v6&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;&#x2F;span&gt;)
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h3 id=&quot;delete-a-rule&quot;&gt;Delete a rule&lt;&#x2F;h3&gt;
+&lt;p&gt;First we need to print the status in numbered format. And we need to do that everytime we delete a rule. Because when we change the rules the index number changes.
+For example, if we wanto delete rule number 5. To do that we can,&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; ufw delete 5&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Done!&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Securing Wordpress</title>
+        <published>2025-08-25T00:00:00+00:00</published>
+        <updated>2025-08-25T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://saif-it.pages.dev/blog/wordpress-security/"/>
+        <id>https://saif-it.pages.dev/blog/wordpress-security/</id>
+        
+        <content type="html" xml:base="https://saif-it.pages.dev/blog/wordpress-security/">&lt;h2 id=&quot;1-setup-wordpress-and-continue-with-the-following&quot;&gt;1. Setup Wordpress and continue with the following&lt;&#x2F;h2&gt;
+&lt;p&gt; &lt;&#x2F;p&gt;
+&lt;h2 id=&quot;2-installing-ssl-tls-certificate&quot;&gt;2. Installing SSL&#x2F;TLS certificate&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;A lot of the domain providers should provide an SSL certificate.&lt;&#x2F;li&gt;
+&lt;li&gt;Cloudflare privides a free SSL certificate upon setting it up as a dns. Also, when using Cloudflare make sure to use the reverse proxy service of Cloudflare and CDN and other domain and server security (like DDOS) features of Cloudflare.&lt;&#x2F;li&gt;
+&lt;li&gt;You can also install a free SSL certificate by “Let’s Encrypt” which is a project of EFF. The procedure is as follows.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; apt install&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; -&lt;&#x2F;span&gt;y&lt;&#x2F;span&gt; certbot python3-certbot-apache python3-certbot-nginx&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-begin z-shell&quot;&gt;#&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt; Install the certificate by providing the webserver technology name. We can also use &amp;quot;--nginx&amp;quot;.&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; certbot&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; --&lt;&#x2F;span&gt;apache&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-begin z-shell&quot;&gt;#&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt; This will detect connected domains to this server and ask to install certificates for the domains. It will allow to install certificates for multiple domains connected to the server.&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt; &lt;&#x2F;p&gt;
+&lt;h3 id=&quot;create-a-cron-job-to-automatically-renew-the-certificate&quot;&gt;Create a cron job to automatically renew the certificate&lt;&#x2F;h3&gt;
+&lt;ul&gt;
+&lt;li&gt;The Let’s Encrypt certificate stays valid for 3 months. So we need to renew it before that time period.&lt;&#x2F;li&gt;
+&lt;li&gt;We will add a cron job to renew the certificate in every 2 months.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; crontab&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; -&lt;&#x2F;span&gt;e&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-begin z-shell&quot;&gt;#&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt; Put this inside the cron file.&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;0&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; 0 2 &lt;span class=&quot;z-keyword z-operator z-regexp z-quantifier z-shell&quot;&gt;*&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-operator z-regexp z-quantifier z-shell&quot;&gt;*&lt;&#x2F;span&gt; certbot&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; --&lt;&#x2F;span&gt;apache&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt; &lt;&#x2F;p&gt;
+&lt;h2 id=&quot;3-password-policy&quot;&gt;3. Password Policy&lt;&#x2F;h2&gt;
+&lt;p&gt;Enforece a strict password policy for the users using this wordpress server if there are multiple users using the wordpress instance.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;4-wordpress-user-management&quot;&gt;4. Wordpress User Management&lt;&#x2F;h2&gt;
+&lt;p&gt;Make sure “New User Default Role” is set to “Subscriber” or “Author”. You can find it in &lt;code&gt;Settings &amp;gt; General &amp;gt; New User Default Role&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;4-updates&quot;&gt;4. Updates&lt;&#x2F;h2&gt;
+&lt;p&gt;Make sure the wordpress has the latest update.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;5-redundant-plugins&quot;&gt;5. Redundant Plugins&lt;&#x2F;h2&gt;
+&lt;p&gt;Delete any unnecessary plugins and pages.
+ &lt;&#x2F;p&gt;
+&lt;h2 id=&quot;6-setup-2fa-for-wordpress&quot;&gt;6. Setup 2FA for Wordpress.&lt;&#x2F;h2&gt;
+&lt;p&gt;Go to plugins and install a 2FA plugin. A good one is &lt;strong&gt;“2FAS Light - Google Authenticator”&lt;&#x2F;strong&gt;.
+ &lt;&#x2F;p&gt;
+&lt;h2 id=&quot;7-bruteforce-protection-plugin&quot;&gt;7. Bruteforce Protection Plugin&lt;&#x2F;h2&gt;
+&lt;p&gt;Install a bruteforce protection plugin. This will protect the wordpress login page from bruteforce attacks.
+A good plugin for this is &lt;strong&gt;“Loginizer”&lt;&#x2F;strong&gt;. It also provides various security recommendation.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;using-loginizer&quot;&gt;Using Loginizer&lt;&#x2F;h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Follow the recommendations provided by Loginizer.&lt;&#x2F;li&gt;
+&lt;li&gt;Loginizer also provides 2FA support.
+ &lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;8-firewall-and-malware-scanner-plugin&quot;&gt;8. Firewall and Malware Scanner Plugin&lt;&#x2F;h2&gt;
+&lt;p&gt;Install “Wordfence Security - Firewall &amp;amp; Malware Scan”.
+This will allow us to setup a web application firewall which uses the OWASP web application vulnerability list and also provide mlware scanning.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;setting-up-wordfence&quot;&gt;Setting up Wordfence&lt;&#x2F;h3&gt;
+&lt;ul&gt;
+&lt;li&gt;In the Wordfence dashboard it will show the current security status of the wordpress site. It will be in “Learning Mode” after installation and it will try and learn from various traffic coming to the site.&lt;&#x2F;li&gt;
+&lt;li&gt;In Firewall tab we can set various settings. Under “Brute Force Protection” set the values appropriately. Make sure to set “Count failures over what time period” is set to a lower value like 30 minutes or maybe even less. Because brute force attacks are typically performed in a very short burst.&lt;&#x2F;li&gt;
+&lt;li&gt;We can also run the malware scanner maybe envery month if the site is very active.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt; &lt;&#x2F;p&gt;
+&lt;h2 id=&quot;9-optional-solving-ssl-tls-issues&quot;&gt;9. (Optional) Solving SSL&#x2F;TLS issues&lt;&#x2F;h2&gt;
+&lt;p&gt;If we are having issues with SSL then we can install “Really Simple SSL”. It will help to solve various SSL issues.
+ &lt;&#x2F;p&gt;
+&lt;h2 id=&quot;10-site-backup&quot;&gt;10. Site Backup&lt;&#x2F;h2&gt;
+&lt;p&gt;Install a backup plugin that “clones” your entire site.&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Some good backup plugins are “Duplicator 	- Wordpress Migration Plugin”.&lt;&#x2F;li&gt;
+&lt;li&gt;Take at least weekly backups and then monthly backups. Also keep redundant backups of 1-2 months old. Or maybe even older.&lt;&#x2F;li&gt;
+&lt;li&gt;Take backups before making any changes to the website.
+ &lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;11-xml-rpc-attack-prevention&quot;&gt;11. XML-RPC Attack Prevention&lt;&#x2F;h2&gt;
+&lt;p&gt;Disable “XML-RPC” endpoint.
+We can Install “Stop XML-RPC Attacks” plugin to completely disable XML-RPC on the site. We can also manually remove xml-rpc.&lt;&#x2F;p&gt;
+&lt;p&gt;Also our server should be more secure because we didn’t install or removed the “php-xmlrpc” package in the first place.
+ &lt;&#x2F;p&gt;
+&lt;h2 id=&quot;12-install-monitoring-plugin&quot;&gt;12. Install monitoring plugin.&lt;&#x2F;h2&gt;
+&lt;p&gt;Install a plugin that will keep logs of the wordpress site. A good plugin is “WP Activity Log”.
+ &lt;&#x2F;p&gt;
+&lt;h2 id=&quot;13-file-permissions&quot;&gt;13. File Permissions&lt;&#x2F;h2&gt;
+&lt;p&gt;Make sure the owner of the wordpress directory on the server is “www-data”.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;14-disable-file-editing&quot;&gt;14. Disable File Editing&lt;&#x2F;h2&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; vim &#x2F;var&#x2F;www&#x2F;wordpress&#x2F;wp-config.php&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-begin z-shell&quot;&gt;#&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt; Append the config below&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;&#x2F;**&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; DISABLE FILE EDITING &lt;span class=&quot;z-keyword z-operator z-regexp z-quantifier z-shell&quot;&gt;*&lt;&#x2F;span&gt;&#x2F;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;define&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt;(&lt;span class=&quot;z-string z-quoted z-single z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-begin z-shell&quot;&gt;&amp;#39;&lt;&#x2F;span&gt;DISALLOW_FILE_EDIT&lt;span class=&quot;z-punctuation z-definition z-string z-end z-shell&quot;&gt;&amp;#39;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;, true&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;&#x2F;span&gt;)&lt;span class=&quot;z-keyword z-operator z-logical z-continue z-shell&quot;&gt;;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt; &lt;&#x2F;p&gt;
+&lt;h2 id=&quot;15-make-the-wp-config-php-file-readonly&quot;&gt;15. Make the “wp-config.php” file readonly.&lt;&#x2F;h2&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; chmod 0444 &#x2F;var&#x2F;www&#x2F;wordpress&#x2F;wp-config.php&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;We will still be able to edit the file because we have the root access.
+ &lt;&#x2F;p&gt;
+&lt;h2 id=&quot;16-disable-directory-listing-the-wordpress-directory&quot;&gt;16. Disable directory listing the wordpress directory.&lt;&#x2F;h2&gt;
+&lt;p&gt;We will configure apache &lt;code&gt;.htaccess&lt;&#x2F;code&gt; to mitigate this.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; vim &#x2F;var&#x2F;www&#x2F;wordpress&#x2F;.htaccess&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-begin z-shell&quot;&gt;#&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt; Append the config below&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;Options&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt;&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; -&lt;&#x2F;span&gt;Indexes&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-begin z-shell&quot;&gt;#&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt; Make the .htaccess readonly.&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; chmod 0444 &#x2F;var&#x2F;www&#x2F;wordpress&#x2F;.htaccess&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; systemctl restart apache2&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt; &lt;&#x2F;p&gt;
+&lt;h2 id=&quot;17-password-protect-the-wp-login-php-page-using-apache&quot;&gt;17. Password Protect the “wp-login.php” page using apache.&lt;&#x2F;h2&gt;
+&lt;p&gt;For this the “apache2-utils” package is required which we should’ve installed during the wordpress setup.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; htpasswd&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; -&lt;&#x2F;span&gt;c&lt;&#x2F;span&gt; &#x2F;etc&#x2F;apache2&#x2F;.htpasswd username&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; vim &#x2F;var&#x2F;www&#x2F;wordpress&#x2F;wp-admin&#x2F;.htaccess&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-begin z-shell&quot;&gt;#&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt; Append the configs&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;AuthName&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; &lt;span class=&quot;z-string z-quoted z-double z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-begin z-shell&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;Admin Login&lt;span class=&quot;z-punctuation z-definition z-string z-end z-shell&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;AuthUserFile&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; &#x2F;etc&#x2F;apache2&#x2F;.htpasswd&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;AuthType&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; Basic&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;Require&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; valid-user&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-begin z-shell&quot;&gt;#&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt; Make the .htaccess readonly.&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; chmod 0444 &#x2F;var&#x2F;www&#x2F;wordpress&#x2F;wp-admin&#x2F;.htaccess&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; systemctl restart apache2&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt; &lt;&#x2F;p&gt;
+&lt;h2 id=&quot;18-disable-php-code-execution-by-denying-php-file-upload&quot;&gt;18. Disable php code execution by denying php file upload.&lt;&#x2F;h2&gt;
+&lt;p&gt;We will allow php code execution of required php files of wordpress and disallow every other php file that might be uploaded using any file upload vulnerability. To do this we are going to disallow php file upload.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh z-code&quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; vim &#x2F;var&#x2F;www&#x2F;wordpress&#x2F;wp-content&#x2F;uploads&#x2F;.htaccess&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-begin z-shell&quot;&gt;#&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt; append the configs&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-keyword z-operator z-assignment z-redirection z-shell&quot;&gt;&amp;lt;&lt;&#x2F;span&gt;Files &lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;*.php&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt;&lt;span class=&quot;z-keyword z-operator z-assignment z-redirection z-shell&quot;&gt;&amp;gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;deny&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; from all&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-keyword z-operator z-assignment z-redirection z-shell&quot;&gt;&amp;lt;&lt;&#x2F;span&gt;&#x2F;Files&lt;span class=&quot;z-keyword z-operator z-assignment z-redirection z-shell&quot;&gt;&amp;gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-begin z-shell&quot;&gt;#&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt; Make the .htaccess readonly.&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; chmod 0444 &#x2F;var&#x2F;www&#x2F;wordpress&#x2F;wp-content&#x2F;uploads&#x2F;.htaccess&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; systemctl restart apache2&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt; &lt;&#x2F;p&gt;
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;&#x2F;h2&gt;
+&lt;p&gt;We can setup authentication for any other wordpress page using “.htaccess”.
+Now create a backup&#x2F;clone of this entire site which will basically take a snapshot of everything including the databases and configs.&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+</feed>

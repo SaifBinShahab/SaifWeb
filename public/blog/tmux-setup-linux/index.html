@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  lang="en" data-theme="dark">
+<head>
+	<!-- 2025-09-02 Tue 19:54 -->
+	<meta charset="UTF-8" />
+	<meta name="description" content="Saif Bin Shahab is an experienced Cyber Security Specialist and Software Developer. He is also the Founder of Vault47 Cyber Security." />
+	<meta name="keywords" content="cyber security, ethical hacker, developer, portfolio, software development, web development, projects, homelab, linux" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="theme-color" content="purple" />
+		<meta name="theme-color" content="purple" media="(prefers-color-scheme:dark)" />
+	<title>Setting up Tmux on Linux - Saif Bin Shahab</title>
+	<link rel="canonical" href="https://saif-it.pages.dev/blog/tmux-setup-linux/" /><link rel="icon" type="image/png" href="https://saif-it.pages.dev/favicon.png" />
+
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="https://saif-it.pages.dev/apple-touch-icon.png" />
+
+		
+			
+				<link rel="alternate" type="application/rss+xml" title="Saif Bin Shahab - RSS Feed" href="https://saif-it.pages.dev/rss.xml">
+			
+		
+			
+				<link rel="alternate" type="application/atom+xml" title="Saif Bin Shahab - Atom Feed" href="https://saif-it.pages.dev/atom.xml">
+			
+		
+    <style type="text/css">
+	:root {--accent-color: purple;}[data-theme="dark"] {
+			--accent-color: purple;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			:root:not([data-theme="light"]) {
+				--accent-color: purple;
+			}
+		}</style>
+
+			<link type="text/css" rel="stylesheet" href="https://saif-it.pages.dev/style.css" />
+				<link type="text/css" rel="stylesheet" href="https://saif-it.pages.dev/syntax-theme-light.css" media="(prefers-color-scheme: light)" />
+				<link type="text/css" rel="stylesheet" href="https://saif-it.pages.dev/syntax-theme-dark.css" media="(prefers-color-scheme: dark)" />
+			<script type="text/javascript" defer  src="https://saif-it.pages.dev/closable.js"></script>
+			<script type="text/javascript" defer  src="https://saif-it.pages.dev/copy-button.js"></script>
+			<script type="text/javascript" defer  src="https://saif-it.pages.dev/theme-switcher.js"></script>
+
+	<meta property="og:site_name" content="Saif Bin Shahab" />
+	<meta property="og:title" content="Setting up Tmux on Linux - Saif Bin Shahab" />
+	<meta property="og:url" content="https://saif-it.pages.dev/blog/tmux-setup-linux/" />
+	<meta property="og:description" content="Saif Bin Shahab is an experienced Cyber Security Specialist and Software Developer. He is also the Founder of Vault47 Cyber Security." /><meta property="og:image" content="https://saif-it.pages.dev/card.png" /><meta property="og:locale" content="en_US" />
+</head>
+
+<body>
+
+		
+<header id="site-nav">
+	<nav>
+		<a href="#main-content" tabindex="0">
+			Skip to Main Content
+		</a>
+		<ul>
+			<li id="home">
+				<a href="https://saif-it.pages.dev">
+					<i class="icon"></i>Saif Bin Shahab</a>
+			</li>
+			<li class="divider"></li>
+					<li>
+						<a href="https://saif-it.pages.dev/blog/">Blog</a>
+					</li>
+					<li>
+						<a href="https:&#x2F;&#x2F;github.com&#x2F;saifbinshahab" rel="" class="external">GitHub</a>
+					</li>
+					<li>
+						<a href="https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;saif-bin-shahab" rel="" class="external">LinkedIn</a>
+					</li>
+				<li id="theme-switcher">
+					<details class="closable">
+						<summary class="circle" title="Theme">
+							<i class="icon"></i>
+						</summary>
+						<ul>
+							<li>
+								<button class="circle" id="theme-light" title="Switch to Light Theme">
+									<i class="icon"></i>
+								</button>
+							</li>
+							<li>
+								<button class="circle" id="theme-dark" title="Switch to Dark Theme">
+									<i class="icon"></i>
+								</button>
+							</li>
+							<li>
+								<button class="circle" id="theme-system" title="Use System Theme">
+									<i class="icon"></i>
+								</button>
+							</li>
+						</ul>
+					</details>
+				</li><li id="feed">
+					<details class="closable">
+						<summary class="circle" title="Feed">
+							<i class="icon"></i>
+						</summary>
+						<ul>
+								<li>
+									<a href="https://saif-it.pages.dev/rss.xml" rel="">RSS</a>
+								</li>
+								<li>
+									<a href="https://saif-it.pages.dev/atom.xml" rel="">Atom</a>
+								</li></ul>
+					</details>
+				</li>
+		</ul>
+	</nav>
+</header>
+<main id="main-content">
+		<article><div id="heading"><p>
+				<small>
+					<time datetime=" 2025-08-25T00:00:00+00:00">Published on
+						August 25, 2025</time></small>
+			</p><h1>Setting up Tmux on Linux</h1><p>
+				<small><span>1 minute read</span><span> • </span></small>
+			</p>
+				<ul class="tags"><li><a class="tag" href="https://saif-it.pages.dev/tags/linux/">Linux</a></li>
+				</ul>
+	</div>
+
+	<div id="buttons-container"><a id="go-to-top" href="#top" title="Go to Top"><i class="icon"></i></a><a id="share" href="https://shareopenly.org/share/?url=https:&#x2F;&#x2F;saif-it.pages.dev&#x2F;blog&#x2F;tmux-setup-linux&#x2F;" rel="" title="Share"><i class="icon"></i></a></div><h2 id="install-the-tpm-tmux-plugin-manager-plugin">Install the TPM (Tmux Plugin Manager) plugin</h2>
+<pre data-lang="sh" class="language-sh z-code"><code class="language-sh" data-lang="sh"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">git</span></span><span class="z-meta z-function-call z-arguments z-shell"> clone https://github.com/tmux-plugins/tpm <span class="z-meta z-group z-expansion z-tilde"><span class="z-variable z-language z-tilde z-shell">~</span></span>./tmux/plugins/tpm</span>
+</span></code></pre>
+<p> </p>
+<h2 id="the-tmux-config">The tmux config</h2>
+<pre data-lang="sh" class="language-sh z-code"><code class="language-sh" data-lang="sh"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">vim</span></span><span class="z-meta z-function-call z-arguments z-shell"> <span class="z-meta z-group z-expansion z-tilde"><span class="z-variable z-language z-tilde z-shell">~</span></span>/.config/tmux/tmux.conf</span>
+</span></code></pre>
+<p> </p>
+<pre data-lang="sh" class="language-sh z-code"><code class="language-sh" data-lang="sh"><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> Set true color</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">set-option</span></span><span class="z-meta z-function-call z-arguments z-shell"><span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> -</span>sa</span> terminal-overrides <span class="z-string z-quoted z-double z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&quot;</span>,xterm*:Tc<span class="z-punctuation z-definition z-string z-end z-shell">&quot;</span></span></span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> Enable mouse support and scrolling</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-support z-function z-set z-shell">set</span></span><span class="z-meta z-function-call z-arguments z-shell"> -g mouse on</span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-support z-function z-set z-shell">set</span></span><span class="z-meta z-function-call z-arguments z-shell"> -g @catppuccin_flavour <span class="z-string z-quoted z-single z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&#39;</span>mocha<span class="z-punctuation z-definition z-string z-end z-shell">&#39;</span></span></span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"># Plugins</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-support z-function z-set z-shell">set</span></span><span class="z-meta z-function-call z-arguments z-shell"> -g @plugin <span class="z-string z-quoted z-single z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&#39;</span>tmux-plugins/tpm<span class="z-punctuation z-definition z-string z-end z-shell">&#39;</span></span></span>
+</span><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell">set -g @plugin &#39;tmux-plugins/tmux-sensible&#39;</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-support z-function z-set z-shell">set</span></span><span class="z-meta z-function-call z-arguments z-shell"> -g @plugin <span class="z-string z-quoted z-single z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&#39;</span>christoomey/vim-tmux-navigator<span class="z-punctuation z-definition z-string z-end z-shell">&#39;</span></span></span>
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-support z-function z-set z-shell">set</span></span><span class="z-meta z-function-call z-arguments z-shell"> -g @plugin <span class="z-string z-quoted z-single z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&#39;</span>dreamsofcode-io/catppuccin-tmux<span class="z-punctuation z-definition z-string z-end z-shell">&#39;</span></span></span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"># Tmux sensible custom</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> Address vim mode switching delay (http://superuser.com/a/252717/65504)</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-support z-function z-set z-shell">set</span></span><span class="z-meta z-function-call z-arguments z-shell"> -s escape-time 0</span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> Increase scrollback buffer size from 2000 to 50000 lines</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-support z-function z-set z-shell">set</span></span><span class="z-meta z-function-call z-arguments z-shell"> -g history-limit 50000</span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> Increase tmux messages display duration from 750ms to 4s</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-support z-function z-set z-shell">set</span></span><span class="z-meta z-function-call z-arguments z-shell"> -g display-time 4000</span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> Refresh &#39;status-left&#39; and &#39;status-right&#39; more often, from every 15s to 5s</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-support z-function z-set z-shell">set</span></span><span class="z-meta z-function-call z-arguments z-shell"> -g status-interval 5</span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> Upgrade $TERM</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-support z-function z-set z-shell">set</span></span><span class="z-meta z-function-call z-arguments z-shell"> -g default-terminal <span class="z-string z-quoted z-double z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&quot;</span>screen-256color<span class="z-punctuation z-definition z-string z-end z-shell">&quot;</span></span></span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> Emacs key bindings in tmux command prompt (prefix + :) are better than</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> vi keys, even for vim users</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell">set -g status-keys emacs</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> Focus events enabled for terminals that support them</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-support z-function z-set z-shell">set</span></span><span class="z-meta z-function-call z-arguments z-shell"> -g focus-events on</span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> Super useful when using &quot;grouped sessions&quot; and multi-monitor setup</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">setw</span></span><span class="z-meta z-function-call z-arguments z-shell"><span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> -</span>g</span> aggressive-resize on</span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"># Key bindings</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> Easier and faster switching between next/prev window</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-support z-function z-bind z-shell">bind</span></span><span class="z-meta z-function-call z-arguments z-shell"> C-p previous-window</span>
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-support z-function z-bind z-shell">bind</span></span><span class="z-meta z-function-call z-arguments z-shell"> C-n next-window</span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> Use Alt-arrow keys without prefix key to switch panes</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-support z-function z-bind z-shell">bind</span></span><span class="z-meta z-function-call z-arguments z-shell"> -n M-Left select-pane -L</span>
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-support z-function z-bind z-shell">bind</span></span><span class="z-meta z-function-call z-arguments z-shell"> -n M-Right select-pane -R</span>
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-support z-function z-bind z-shell">bind</span></span><span class="z-meta z-function-call z-arguments z-shell"> -n M-Up select-pane -U</span>
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-support z-function z-bind z-shell">bind</span></span><span class="z-meta z-function-call z-arguments z-shell"> -n M-Down select-pane -D</span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">run</span></span><span class="z-meta z-function-call z-arguments z-shell"> <span class="z-string z-quoted z-single z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&#39;</span>~/.tmux/plugins/tpm/tpm<span class="z-punctuation z-definition z-string z-end z-shell">&#39;</span></span></span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"># set vi-mode</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">set-window-option</span></span><span class="z-meta z-function-call z-arguments z-shell"><span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> -</span>g</span> mode-keys vi</span>
+</span><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> keybindings</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">bind-key</span></span><span class="z-meta z-function-call z-arguments z-shell"><span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> -</span>T</span> copy-mode-vi v send-keys<span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> -</span>X</span> begin-selection</span>
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">bind-key</span></span><span class="z-meta z-function-call z-arguments z-shell"><span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> -</span>T</span> copy-mode-vi C-v send-keys<span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> -</span>X</span> rectangle-toggle</span>
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">bind-key</span></span><span class="z-meta z-function-call z-arguments z-shell"><span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> -</span>T</span> copy-mode-vi y send-keys<span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> -</span>X</span> copy-selection-and-cancel</span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-support z-function z-bind z-shell">bind</span></span><span class="z-meta z-function-call z-arguments z-shell"> <span class="z-string z-quoted z-single z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&#39;</span>&quot;<span class="z-punctuation z-definition z-string z-end z-shell">&#39;</span></span> split-window -v -c <span class="z-string z-quoted z-double z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&quot;</span>#{pane_current_path}<span class="z-punctuation z-definition z-string z-end z-shell">&quot;</span></span></span>
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-support z-function z-bind z-shell">bind</span></span><span class="z-meta z-function-call z-arguments z-shell"> <span class="z-meta z-group z-expansion z-job z-shell"><span class="z-punctuation z-definition z-variable z-job z-shell">%</span></span> split-window -h -c <span class="z-string z-quoted z-double z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&quot;</span>#{pane_current_path}<span class="z-punctuation z-definition z-string z-end z-shell">&quot;</span></span></span>
+</span></code></pre>
+
+</article><hr />
+	<nav id="post-nav"><a class="post-nav-item post-nav-prev" href="https:&#x2F;&#x2F;saif-it.pages.dev&#x2F;blog&#x2F;traefik-installation-linux&#x2F;">
+				<div class="nav-arrow">Previous</div>
+				<span class="post-title">Installing Traefik on Linux</span>
+			</a><a class="post-nav-item post-nav-next" href="https:&#x2F;&#x2F;saif-it.pages.dev&#x2F;blog&#x2F;ssh-security&#x2F;">
+				<div class="nav-arrow">Next</div>
+				<span class="post-title">SSH Security</span>
+			</a></nav>
+		
+	<span id="copy-code-text" class="hidden">Copy Code</span>
+
+	</main>
+	<footer id="site-footer">
+			<p>&copy; Saif Bin Shahab, 2025</p>
+		<ul id="socials">
+				<li>
+					<a href="https://github.com/saifbinshahab" rel=" me" title="GitHub">
+						<i class="icon" style='--icon: url("data:image/svg+xml,%3Csvg role=&#x27;img&#x27; viewBox=&#x27;0 0 24 24&#x27; xmlns=&#x27;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&#x27;%3E%3Ctitle%3EGitHub%3C&#x2F;title%3E%3Cpath d=&#x27;M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12&#x27;&#x2F;%3E%3C&#x2F;svg%3E")'></i>
+						<span>GitHub</span>
+					</a>
+				</li>
+				<li>
+					<a href="https://www.linkedin.com/in/saif-bin-shahab" rel=" me" title="LinkedIn">
+						<i class="icon" style='--icon: url("data:image/svg+xml,%3Csvg xmlns=&#x27;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&#x27; x=&#x27;0px&#x27; y=&#x27;0px&#x27; width=&#x27;100&#x27; height=&#x27;100&#x27; viewBox=&#x27;0 0 50 50&#x27;%3E%3Cpath d=&#x27;M41,4H9C6.24,4,4,6.24,4,9v32c0,2.76,2.24,5,5,5h32c2.76,0,5-2.24,5-5V9C46,6.24,43.76,4,41,4z M17,20v19h-6V20H17z M11,14.47c0-1.4,1.2-2.47,3-2.47s2.93,1.07,3,2.47c0,1.4-1.12,2.53-3,2.53C12.2,17,11,15.87,11,14.47z M39,39h-6c0,0,0-9.26,0-10 c0-2-1-4-3.5-4.04h-0.08C27,24.96,26,27.02,26,29c0,0.91,0,10,0,10h-6V20h6v2.56c0,0,1.93-2.56,5.81-2.56 c3.97,0,7.19,2.73,7.19,8.26V39z&#x27;%3E%3C&#x2F;path%3E%3C&#x2F;svg%3E")'></i>
+						<span>LinkedIn</span>
+					</a>
+				</li>
+				<li>
+					<a href="mailto:saifbinshahab@proton.me" rel=" me" title="Mail">
+						<i class="icon" style='--icon: url("data:image/svg+xml,%3Csvg role=&#x27;img&#x27; viewBox=&#x27;0 0 24 24&#x27; xmlns=&#x27;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&#x27;%3E%3Ctitle%3EGmail%3C&#x2F;title%3E%3Cpath d=&#x27;M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z&#x27;&#x2F;%3E%3C&#x2F;svg%3E")'></i>
+						<span>Mail</span>
+					</a>
+				</li>
+				<li>
+					<a href="https://mastodon.social/@saifbinshahab" rel=" me" title="Mastodon">
+						<i class="icon" style='--icon: url("data:image/svg+xml,%3Csvg role=&#x27;img&#x27; viewBox=&#x27;0 0 24 24&#x27; xmlns=&#x27;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&#x27;%3E%3Ctitle%3EMastodon%3C&#x2F;title%3E%3Cpath d=&#x27;M23.268 5.313c-.35-2.578-2.617-4.61-5.304-5.004C17.51.242 15.792 0 11.813 0h-.03c-3.98 0-4.835.242-5.288.309C3.882.692 1.496 2.518.917 5.127.64 6.412.61 7.837.661 9.143c.074 1.874.088 3.745.26 5.611.118 1.24.325 2.47.62 3.68.55 2.237 2.777 4.098 4.96 4.857 2.336.792 4.849.923 7.256.38.265-.061.527-.132.786-.213.585-.184 1.27-.39 1.774-.753a.057.057 0 0 0 .023-.043v-1.809a.052.052 0 0 0-.02-.041.053.053 0 0 0-.046-.01 20.282 20.282 0 0 1-4.709.545c-2.73 0-3.463-1.284-3.674-1.818a5.593 5.593 0 0 1-.319-1.433.053.053 0 0 1 .066-.054c1.517.363 3.072.546 4.632.546.376 0 .75 0 1.125-.01 1.57-.044 3.224-.124 4.768-.422.038-.008.077-.015.11-.024 2.435-.464 4.753-1.92 4.989-5.604.008-.145.03-1.52.03-1.67.002-.512.167-3.63-.024-5.545zm-3.748 9.195h-2.561V8.29c0-1.309-.55-1.976-1.67-1.976-1.23 0-1.846.79-1.846 2.35v3.403h-2.546V8.663c0-1.56-.617-2.35-1.848-2.35-1.112 0-1.668.668-1.67 1.977v6.218H4.822V8.102c0-1.31.337-2.35 1.011-3.12.696-.77 1.608-1.164 2.74-1.164 1.311 0 2.302.5 2.962 1.498l.638 1.06.638-1.06c.66-.999 1.65-1.498 2.96-1.498 1.13 0 2.043.395 2.74 1.164.675.77 1.012 1.81 1.012 3.12z&#x27;&#x2F;%3E%3C&#x2F;svg%3E")'></i>
+						<span>Mastodon</span>
+					</a>
+				</li>
+				<li>
+					<a href="https://x.com/saifbinshahab" rel=" me" title="Twitter">
+						<i class="icon" style='--icon: url("data:image/svg+xml,%3Csvg role=&#x27;img&#x27; viewBox=&#x27;0 0 24 24&#x27; xmlns=&#x27;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&#x27;%3E%3Ctitle%3ETwitter%3C&#x2F;title%3E%3Cpath d=&#x27;M21.543 7.104c.015.211.015.423.015.636 0 6.507-4.954 14.01-14.01 14.01v-.003A13.94 13.94 0 0 1 0 19.539a9.88 9.88 0 0 0 7.287-2.041 4.93 4.93 0 0 1-4.6-3.42 4.916 4.916 0 0 0 2.223-.084A4.926 4.926 0 0 1 .96 9.167v-.062a4.887 4.887 0 0 0 2.235.616A4.928 4.928 0 0 1 1.67 3.148 13.98 13.98 0 0 0 11.82 8.292a4.929 4.929 0 0 1 8.39-4.49 9.868 9.868 0 0 0 3.128-1.196 4.941 4.941 0 0 1-2.165 2.724A9.828 9.828 0 0 0 24 4.555a10.019 10.019 0 0 1-2.457 2.549z&#x27;&#x2F;%3E%3C&#x2F;svg%3E")'></i>
+						<span>Twitter</span>
+					</a>
+				</li>
+		</ul>
+</footer>
+
+
+</body>
+</html>

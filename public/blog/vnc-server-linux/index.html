@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  lang="en" data-theme="dark">
+<head>
+	<!-- 2025-09-02 Tue 19:54 -->
+	<meta charset="UTF-8" />
+	<meta name="description" content="Saif Bin Shahab is an experienced Cyber Security Specialist and Software Developer. He is also the Founder of Vault47 Cyber Security." />
+	<meta name="keywords" content="cyber security, ethical hacker, developer, portfolio, software development, web development, projects, homelab, linux" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="theme-color" content="purple" />
+		<meta name="theme-color" content="purple" media="(prefers-color-scheme:dark)" />
+	<title>Install and Configure VNC server on Linux - Saif Bin Shahab</title>
+	<link rel="canonical" href="https://saif-it.pages.dev/blog/vnc-server-linux/" /><link rel="icon" type="image/png" href="https://saif-it.pages.dev/favicon.png" />
+
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="https://saif-it.pages.dev/apple-touch-icon.png" />
+
+		
+			
+				<link rel="alternate" type="application/rss+xml" title="Saif Bin Shahab - RSS Feed" href="https://saif-it.pages.dev/rss.xml">
+			
+		
+			
+				<link rel="alternate" type="application/atom+xml" title="Saif Bin Shahab - Atom Feed" href="https://saif-it.pages.dev/atom.xml">
+			
+		
+    <style type="text/css">
+	:root {--accent-color: purple;}[data-theme="dark"] {
+			--accent-color: purple;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			:root:not([data-theme="light"]) {
+				--accent-color: purple;
+			}
+		}</style>
+
+			<link type="text/css" rel="stylesheet" href="https://saif-it.pages.dev/style.css" />
+				<link type="text/css" rel="stylesheet" href="https://saif-it.pages.dev/syntax-theme-light.css" media="(prefers-color-scheme: light)" />
+				<link type="text/css" rel="stylesheet" href="https://saif-it.pages.dev/syntax-theme-dark.css" media="(prefers-color-scheme: dark)" />
+			<script type="text/javascript" defer  src="https://saif-it.pages.dev/closable.js"></script>
+			<script type="text/javascript" defer  src="https://saif-it.pages.dev/copy-button.js"></script>
+			<script type="text/javascript" defer  src="https://saif-it.pages.dev/theme-switcher.js"></script>
+
+	<meta property="og:site_name" content="Saif Bin Shahab" />
+	<meta property="og:title" content="Install and Configure VNC server on Linux - Saif Bin Shahab" />
+	<meta property="og:url" content="https://saif-it.pages.dev/blog/vnc-server-linux/" />
+	<meta property="og:description" content="Saif Bin Shahab is an experienced Cyber Security Specialist and Software Developer. He is also the Founder of Vault47 Cyber Security." /><meta property="og:image" content="https://saif-it.pages.dev/card.png" /><meta property="og:locale" content="en_US" />
+</head>
+
+<body>
+
+		
+<header id="site-nav">
+	<nav>
+		<a href="#main-content" tabindex="0">
+			Skip to Main Content
+		</a>
+		<ul>
+			<li id="home">
+				<a href="https://saif-it.pages.dev">
+					<i class="icon"></i>Saif Bin Shahab</a>
+			</li>
+			<li class="divider"></li>
+					<li>
+						<a href="https://saif-it.pages.dev/blog/">Blog</a>
+					</li>
+					<li>
+						<a href="https:&#x2F;&#x2F;github.com&#x2F;saifbinshahab" rel="" class="external">GitHub</a>
+					</li>
+					<li>
+						<a href="https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;saif-bin-shahab" rel="" class="external">LinkedIn</a>
+					</li>
+				<li id="theme-switcher">
+					<details class="closable">
+						<summary class="circle" title="Theme">
+							<i class="icon"></i>
+						</summary>
+						<ul>
+							<li>
+								<button class="circle" id="theme-light" title="Switch to Light Theme">
+									<i class="icon"></i>
+								</button>
+							</li>
+							<li>
+								<button class="circle" id="theme-dark" title="Switch to Dark Theme">
+									<i class="icon"></i>
+								</button>
+							</li>
+							<li>
+								<button class="circle" id="theme-system" title="Use System Theme">
+									<i class="icon"></i>
+								</button>
+							</li>
+						</ul>
+					</details>
+				</li><li id="feed">
+					<details class="closable">
+						<summary class="circle" title="Feed">
+							<i class="icon"></i>
+						</summary>
+						<ul>
+								<li>
+									<a href="https://saif-it.pages.dev/rss.xml" rel="">RSS</a>
+								</li>
+								<li>
+									<a href="https://saif-it.pages.dev/atom.xml" rel="">Atom</a>
+								</li></ul>
+					</details>
+				</li>
+		</ul>
+	</nav>
+</header>
+<main id="main-content">
+		<article><div id="heading"><p>
+				<small>
+					<time datetime=" 2025-08-25T00:00:00+00:00">Published on
+						August 25, 2025</time></small>
+			</p><h1>Install and Configure VNC server on Linux</h1><p>
+				<small><span>5 minutes read</span><span> • </span></small>
+			</p>
+				<ul class="tags"><li><a class="tag" href="https://saif-it.pages.dev/tags/linux/">Linux</a></li><li><a class="tag" href="https://saif-it.pages.dev/tags/homelab/">Homelab</a></li><li><a class="tag" href="https://saif-it.pages.dev/tags/server/">Server</a></li>
+				</ul>
+	</div>
+
+	<div id="buttons-container"><a id="go-to-top" href="#top" title="Go to Top"><i class="icon"></i></a><a id="share" href="https://shareopenly.org/share/?url=https:&#x2F;&#x2F;saif-it.pages.dev&#x2F;blog&#x2F;vnc-server-linux&#x2F;" rel="" title="Share"><i class="icon"></i></a></div><h2 id="step-1-installing-the-desktop-environment-and-vnc-server">Step 1 — Installing the Desktop Environment and VNC Server</h2>
+<pre data-lang="sh" class="language-sh z-code"><code class="language-sh" data-lang="sh"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">sudo</span></span><span class="z-meta z-function-call z-arguments z-shell"> apt update</span> <span class="z-keyword z-operator z-logical z-and z-shell">&amp;&amp;</span> <span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">sudo</span></span><span class="z-meta z-function-call z-arguments z-shell"> apt install<span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> -</span>y</span> xfce4 xfce4-goodies tightvncserver dbus-x11</span>
+</span></code></pre>
+<p>To complete the VNC server’s initial configuration after installation, use the vncserver command to set up a secure password and create the initial configuration files:</p>
+<pre data-lang="sh" class="language-sh z-code"><code class="language-sh" data-lang="sh"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">vncserver</span></span>
+</span></code></pre>
+<p>Next there will be a prompt to enter and verify a password to access your machine remotely:</p>
+<p>Output:</p>
+<pre data-lang="sh" class="language-sh z-code"><code class="language-sh" data-lang="sh"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">You</span></span><span class="z-meta z-function-call z-arguments z-shell"> will require a password to access your desktops.</span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">Password:</span></span>
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">Verify:</span></span>
+</span></code></pre>
+<p>The password must be between six and eight characters long. Passwords with more than eight characters will be truncated automatically.</p>
+<p>Once you verify the password, you have the option to create a view-only password. Users who log in with the view-only password will not be able to control the VNC instance with their mouse or keyboard. This is a helpful option if you want to demonstrate something to other people using your VNC server, but this isn’t required.</p>
+<p>The process then creates the necessary default configuration files and connection information for the server:</p>
+<p>Output:</p>
+<pre data-lang="sh" class="language-sh z-code"><code class="language-sh" data-lang="sh"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">Would</span></span><span class="z-meta z-function-call z-arguments z-shell"> you like to enter a view-only password (y/n</span><span class="z-meta z-function-call z-shell"></span>)<span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">?</span></span><span class="z-meta z-function-call z-arguments z-shell"> n</span>
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">xauth:</span></span><span class="z-meta z-function-call z-arguments z-shell">  file /home/sammy/.Xauthority does not exist</span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">New</span></span><span class="z-meta z-function-call z-arguments z-shell"> <span class="z-string z-quoted z-single z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&#39;</span>X<span class="z-punctuation z-definition z-string z-end z-shell">&#39;</span></span> desktop is your_hostname:1</span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">Creating</span></span><span class="z-meta z-function-call z-arguments z-shell"> default startup script /home/sammy/.vnc/xstartup</span>
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">Starting</span></span><span class="z-meta z-function-call z-arguments z-shell"> applications specified in /home/sammy/.vnc/xstartup</span>
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">Log</span></span><span class="z-meta z-function-call z-arguments z-shell"> file is /home/sammy/.vnc/your_hostname:1.log</span>
+</span></code></pre>
+<p>Next, configure it to launch Xfce and give access to the server through a graphical interface.</p>
+<p> </p>
+<h2 id="step-2-configuring-the-vnc-server">Step 2 — Configuring the VNC Server</h2>
+<p>The VNC server needs to know which commands to execute when it starts up. Specifically, VNC needs to know which graphical desktop it should connect to.</p>
+<p>These commands are located in a configuration file called xstartup in the .vnc folder under your home directory. The startup script was created when you ran the vncserver command in the previous step, but you’ll create your own to launch the Xfce desktop.</p>
+<p>When VNC is first set up, it launches a default server instance on port 5901. This port is called a display port, and is referred to by VNC as :1. VNC can launch multiple instances on other display ports, like :2, :3, and so on.</p>
+<p>Because you are going to be changing how the VNC server is configured, first stop the VNC server instance that is running on port 5901 with the following command:</p>
+<pre data-lang="sh" class="language-sh z-code"><code class="language-sh" data-lang="sh"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">vncserver</span></span><span class="z-meta z-function-call z-arguments z-shell"><span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> -</span>kill</span> :1</span>
+</span></code></pre>
+<p>Output</p>
+<pre data-lang="sh" class="language-sh z-code"><code class="language-sh" data-lang="sh"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">Killing</span></span><span class="z-meta z-function-call z-arguments z-shell"> Xtightvnc process ID 17648</span>
+</span></code></pre>
+<p>Before you modify the xstartup file, back up the original:</p>
+<pre data-lang="sh" class="language-sh z-code"><code class="language-sh" data-lang="sh"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">mv</span></span><span class="z-meta z-function-call z-arguments z-shell"> <span class="z-meta z-group z-expansion z-tilde"><span class="z-variable z-language z-tilde z-shell">~</span></span>/.vnc/xstartup <span class="z-meta z-group z-expansion z-tilde"><span class="z-variable z-language z-tilde z-shell">~</span></span>/.vnc/xstartup.bak</span>
+</span></code></pre>
+<p>Now create a new xstartup file and open it in your preferred text editor:</p>
+<pre data-lang="sh" class="language-sh z-code"><code class="language-sh" data-lang="sh"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">vim</span></span><span class="z-meta z-function-call z-arguments z-shell"> <span class="z-meta z-group z-expansion z-tilde"><span class="z-variable z-language z-tilde z-shell">~</span></span>/.vnc/xstartup</span>
+</span></code></pre>
+<p>Commands in this file are executed automatically whenever you start or restart the VNC server. You need VNC to start your desktop environment if it’s not already started. Add the following commands to the file:</p>
+<pre data-lang="sh" class="language-sh z-code"><code class="language-sh" data-lang="sh"><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell">!/bin/sh</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">xrdb</span></span><span class="z-meta z-function-call z-arguments z-shell"> <span class="z-string z-quoted z-double z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&quot;</span><span class="z-meta z-group z-expansion z-parameter z-shell"><span class="z-punctuation z-definition z-variable z-shell">$</span><span class="z-variable z-other z-readwrite z-shell">HOME</span></span>/.Xresources<span class="z-punctuation z-definition z-string z-end z-shell">&quot;</span></span></span>
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">xsetroot</span></span><span class="z-meta z-function-call z-arguments z-shell"><span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> -</span>solid</span> grey</span>
+</span><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell">x-terminal-emulator -geometry 80x24+10+10 -ls -title &quot;$VNCDESKTOP Desktop&quot; &amp;</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell">x-window-manager &amp;</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> Fix to make GNOME work</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-storage z-modifier z-shell">export</span> <span class="z-variable z-other z-readwrite z-assignment z-shell">XKL_XMODMAP_DISABLE</span><span class="z-keyword z-operator z-assignment z-shell">=</span><span class="z-string z-unquoted z-shell">1</span></span>
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">/etc/X11/Xsession</span></span>
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">startxfce4</span></span> <span class="z-keyword z-operator z-logical z-job z-shell">&amp;</span>
+</span></code></pre>
+<p>Here is a brief overview of what each line is doing:</p>
+<ul>
+<li><code>#!/bin/bash</code>: The first line is a shebang. In executable plain-text files on *nix platforms, a shebang tells the system what interpreter to pass that file to for execution. In this case, you’re passing the file to the Bash interpreter. This will allow each successive line to be executed as commands, in order.</li>
+<li><code>xrdb $HOME/.Xresources</code>: This command tells VNC’s GUI framework to read the user’s <code>.Xresources</code> file. <code>.Xresources</code> is where a user can make changes to certain settings for the graphical desktop, like terminal colors, cursor themes, and font rendering.</li>
+<li><code>startxfce4 &amp;</code>: This command tells the server to launch Xfce. This is where you will find all the graphical software that you need to comfortably manage your server.</li>
+</ul>
+<p>To ensure that the VNC server will be able to use this new startup file properly, you need to make it executable:</p>
+<pre data-lang="sh" class="language-sh z-code"><code class="language-sh" data-lang="sh"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">sudo</span></span><span class="z-meta z-function-call z-arguments z-shell"> chmod +x <span class="z-meta z-group z-expansion z-tilde"><span class="z-variable z-language z-tilde z-shell">~</span></span>/.vnc/xstartup</span>
+</span></code></pre>
+<p>Now, restart the VNC server:</p>
+<pre data-lang="sh" class="language-sh z-code"><code class="language-sh" data-lang="sh"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">vncserver</span></span>
+</span></code></pre>
+<p>The output will be similar to the following:
+Output</p>
+<pre data-lang="sh" class="language-sh z-code"><code class="language-sh" data-lang="sh"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">New</span></span><span class="z-meta z-function-call z-arguments z-shell"> <span class="z-string z-quoted z-single z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&#39;</span>X<span class="z-punctuation z-definition z-string z-end z-shell">&#39;</span></span> desktop is your_hostname:1</span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">Starting</span></span><span class="z-meta z-function-call z-arguments z-shell"> applications specified in /home/sammy/.vnc/xstartup</span>
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">Log</span></span><span class="z-meta z-function-call z-arguments z-shell"> file is /home/sammy/.vnc/your_hostname:1.log</span>
+</span></code></pre>
+<p>With the configuration in place, you’re ready to connect to the VNC server from your local machine.</p>
+<p> </p>
+<h2 id="step-3-make-it-persist-across-reboots-and-shutdowns">Step 3 - Make it persist across reboots and shutdowns</h2>
+<h3 id="running-vnc-as-a-system-service">Running VNC as a System Service</h3>
+<p>Next, you’ll set up the VNC server as a systemd service. You can start, stop, and restart it as needed, like any other service. This will also ensure that VNC starts up when your server reboots.</p>
+<p>First, create a new unit file called <code>/etc/systemd/system/vncserver@.service</code> using your favorite text editor:
+The @ symbol at the end of the name will let you pass in an argument you can use in the service configuration. You’ll use this to specify the VNC display port you want to use when you manage the service.</p>
+<pre data-lang="sh" class="language-sh z-code"><code class="language-sh" data-lang="sh"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">sudo</span></span><span class="z-meta z-function-call z-arguments z-shell"> vim /etc/systemd/system/vncserver@.service</span>
+</span></code></pre>
+<p>Add the following lines to the file. Be sure to change the value of User, Group, WorkingDirectory, and the username in the value of PIDFILE to match your username:</p>
+<pre data-lang="sh" class="language-sh z-code"><code class="language-sh" data-lang="sh"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">[Unit]</span></span>
+</span><span class="z-source z-shell z-bash"><span class="z-variable z-other z-readwrite z-assignment z-shell">Description</span><span class="z-keyword z-operator z-assignment z-shell">=</span><span class="z-string z-unquoted z-shell">Start</span> <span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">TightVNC</span></span><span class="z-meta z-function-call z-arguments z-shell"> server at startup</span>
+</span><span class="z-source z-shell z-bash"><span class="z-variable z-other z-readwrite z-assignment z-shell">After</span><span class="z-keyword z-operator z-assignment z-shell">=</span><span class="z-string z-unquoted z-shell">syslog.target</span> <span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">network.target</span></span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">[Service]</span></span>
+</span><span class="z-source z-shell z-bash"><span class="z-variable z-other z-readwrite z-assignment z-shell">Type</span><span class="z-keyword z-operator z-assignment z-shell">=</span><span class="z-string z-unquoted z-shell">forking</span>
+</span><span class="z-source z-shell z-bash"><span class="z-variable z-other z-readwrite z-assignment z-shell">User</span><span class="z-keyword z-operator z-assignment z-shell">=</span><span class="z-string z-unquoted z-shell">debian</span>
+</span><span class="z-source z-shell z-bash"><span class="z-variable z-other z-readwrite z-assignment z-shell">Group</span><span class="z-keyword z-operator z-assignment z-shell">=</span><span class="z-string z-unquoted z-shell">debian</span>
+</span><span class="z-source z-shell z-bash"><span class="z-variable z-other z-readwrite z-assignment z-shell">WorkingDirectory</span><span class="z-keyword z-operator z-assignment z-shell">=</span><span class="z-string z-unquoted z-shell">/home/debian</span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-variable z-other z-readwrite z-assignment z-shell">PIDFile</span><span class="z-keyword z-operator z-assignment z-shell">=</span><span class="z-string z-unquoted z-shell">/home/sammy/.vnc/<span class="z-meta z-group z-expansion z-job z-shell"><span class="z-punctuation z-definition z-variable z-job z-shell">%</span><span class="z-variable z-other z-readwrite z-shell">H</span></span>:<span class="z-meta z-group z-expansion z-job z-shell"><span class="z-punctuation z-definition z-variable z-job z-shell">%</span><span class="z-variable z-other z-readwrite z-shell">i</span></span>.pid</span>
+</span><span class="z-source z-shell z-bash"><span class="z-variable z-other z-readwrite z-assignment z-shell">ExecStartPre</span><span class="z-keyword z-operator z-assignment z-shell">=</span><span class="z-string z-unquoted z-shell">-/usr/bin/vncserver</span> <span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">-kill</span></span><span class="z-meta z-function-call z-arguments z-shell"> :<span class="z-meta z-group z-expansion z-job z-shell"><span class="z-punctuation z-definition z-variable z-job z-shell">%</span><span class="z-variable z-other z-readwrite z-shell">i</span></span> <span class="z-keyword z-operator z-assignment z-redirection z-shell">&gt;</span> /dev/null <span class="z-constant z-numeric z-integer z-decimal z-file-descriptor z-shell">2</span><span class="z-keyword z-operator z-assignment z-redirection z-shell">&gt;&amp;</span><span class="z-constant z-numeric z-integer z-decimal z-file-descriptor z-shell">1</span></span>
+</span><span class="z-source z-shell z-bash"><span class="z-variable z-other z-readwrite z-assignment z-shell">ExecStart</span><span class="z-keyword z-operator z-assignment z-shell">=</span><span class="z-string z-unquoted z-shell">/usr/bin/vncserver</span> <span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">-depth</span></span><span class="z-meta z-function-call z-arguments z-shell"> 24<span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> -</span>geometry</span> 1280x800 :<span class="z-meta z-group z-expansion z-job z-shell"><span class="z-punctuation z-definition z-variable z-job z-shell">%</span><span class="z-variable z-other z-readwrite z-shell">i</span></span></span>
+</span><span class="z-source z-shell z-bash"><span class="z-variable z-other z-readwrite z-assignment z-shell">ExecStop</span><span class="z-keyword z-operator z-assignment z-shell">=</span><span class="z-string z-unquoted z-shell">/usr/bin/vncserver</span> <span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">-kill</span></span><span class="z-meta z-function-call z-arguments z-shell"> :<span class="z-meta z-group z-expansion z-job z-shell"><span class="z-punctuation z-definition z-variable z-job z-shell">%</span><span class="z-variable z-other z-readwrite z-shell">i</span></span></span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">[Install]</span></span>
+</span><span class="z-source z-shell z-bash"><span class="z-variable z-other z-readwrite z-assignment z-shell">WantedBy</span><span class="z-keyword z-operator z-assignment z-shell">=</span><span class="z-string z-unquoted z-shell">multi-user.target</span>
+</span></code></pre>
+<p>The <code>ExecStartPre</code> command stops VNC if it’s already running. The <code>ExecStart</code> command starts VNC and sets the color depth to 24-bit color with a resolution of 1280x800. You can modify these startup options as well to meet your needs.</p>
+<p>Save and close the file when you’re finished.</p>
+<p>Next, make the system aware of the new unit file:</p>
+<pre data-lang="sh" class="language-sh z-code"><code class="language-sh" data-lang="sh"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">sudo</span></span><span class="z-meta z-function-call z-arguments z-shell"> systemctl daemon-reload</span>
+</span></code></pre>
+<p>Then, enable the unit file:</p>
+<pre data-lang="sh" class="language-sh z-code"><code class="language-sh" data-lang="sh"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">sudo</span></span><span class="z-meta z-function-call z-arguments z-shell"> systemctl enable vncserver@1.service</span>
+</span></code></pre>
+<p>The 1 following the @ sign signifies which display number the service should appear over, in this case the default :1 as was discussed in Step 2.</p>
+<p>Stop the current instance of the VNC server if it’s still running.</p>
+<pre data-lang="sh" class="language-sh z-code"><code class="language-sh" data-lang="sh"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">vncserver</span></span><span class="z-meta z-function-call z-arguments z-shell"><span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> -</span>kill</span> :1</span>
+</span></code></pre>
+<p>Then start it as you would start any other systemd service.</p>
+<pre data-lang="sh" class="language-sh z-code"><code class="language-sh" data-lang="sh"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">sudo</span></span><span class="z-meta z-function-call z-arguments z-shell"> systemctl start vncserver@1</span>
+</span></code></pre>
+<p>You can verify that it started with the following command:</p>
+<pre data-lang="sh" class="language-sh z-code"><code class="language-sh" data-lang="sh"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">sudo</span></span><span class="z-meta z-function-call z-arguments z-shell"> systemctl status vncserver@1</span>
+</span></code></pre>
+<p>If it started correctly, the output will be similar to the following:
+Output</p>
+<pre class="z-code"><code><span class="z-text z-plain">● vncserver@1.service - Start TightVNC server at startup
+</span><span class="z-text z-plain">Loaded: loaded (/etc/systemd/system/vncserver@.service; enabled; vendor preset: enabled)
+</span><span class="z-text z-plain">Active: active (running) since Fri 2022-08-19 16:21:36 UTC; 5s ago
+</span><span class="z-text z-plain">Process: 24469 ExecStartPre=/usr/bin/vncserver -kill :1 &gt; /dev/null 2&gt;&amp;1 (code=exited, status=2)
+</span><span class="z-text z-plain">Process: 24474 ExecStart=/usr/bin/vncserver -depth 24 -geometry 1280x800 -localhost :1 (code=exited, status=0/SUCCESS)
+</span><span class="z-text z-plain">Main PID: 24482 (Xtightvnc)
+</span><span class="z-text z-plain">. . .
+</span></code></pre>
+<h3 id="running-vnc-with-cronjob">Running VNC with cronjob</h3>
+<pre data-lang="sh" class="language-sh z-code"><code class="language-sh" data-lang="sh"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">sudo</span></span><span class="z-meta z-function-call z-arguments z-shell"> crontab<span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> -</span>e</span></span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> Add the following line and save</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">@reboot</span></span><span class="z-meta z-function-call z-arguments z-shell"> /usr/bin/vncserver</span>
+</span></code></pre>
+<h2 id="on-the-client-machine">On the client machine</h2>
+<p>Install “Remmina”</p>
+<pre data-lang="sh" class="language-sh z-code"><code class="language-sh" data-lang="sh"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">sudo</span></span><span class="z-meta z-function-call z-arguments z-shell"> pacman<span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> -</span>S</span> remmina</span>
+</span></code></pre>
+<p>Add a new connection and in protocol select “Remmina VNC Plugin…” Then provide in the server field:  <code>IP:Port</code> of the server. In this case, <code>192.168.0.something:5901</code></p>
+<p>Done!</p>
+
+</article><hr />
+	<nav id="post-nav"><a class="post-nav-item post-nav-prev" href="https:&#x2F;&#x2F;saif-it.pages.dev&#x2F;blog&#x2F;wake-on-lan-linux&#x2F;">
+				<div class="nav-arrow">Previous</div>
+				<span class="post-title">Setting up Wake On LAN on Linux</span>
+			</a><a class="post-nav-item post-nav-next" href="https:&#x2F;&#x2F;saif-it.pages.dev&#x2F;blog&#x2F;users-and-groups-linux&#x2F;">
+				<div class="nav-arrow">Next</div>
+				<span class="post-title">Users and Groups Management in Linux</span>
+			</a></nav>
+		
+	<span id="copy-code-text" class="hidden">Copy Code</span>
+
+	</main>
+	<footer id="site-footer">
+			<p>&copy; Saif Bin Shahab, 2025</p>
+		<ul id="socials">
+				<li>
+					<a href="https://github.com/saifbinshahab" rel=" me" title="GitHub">
+						<i class="icon" style='--icon: url("data:image/svg+xml,%3Csvg role=&#x27;img&#x27; viewBox=&#x27;0 0 24 24&#x27; xmlns=&#x27;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&#x27;%3E%3Ctitle%3EGitHub%3C&#x2F;title%3E%3Cpath d=&#x27;M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12&#x27;&#x2F;%3E%3C&#x2F;svg%3E")'></i>
+						<span>GitHub</span>
+					</a>
+				</li>
+				<li>
+					<a href="https://www.linkedin.com/in/saif-bin-shahab" rel=" me" title="LinkedIn">
+						<i class="icon" style='--icon: url("data:image/svg+xml,%3Csvg xmlns=&#x27;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&#x27; x=&#x27;0px&#x27; y=&#x27;0px&#x27; width=&#x27;100&#x27; height=&#x27;100&#x27; viewBox=&#x27;0 0 50 50&#x27;%3E%3Cpath d=&#x27;M41,4H9C6.24,4,4,6.24,4,9v32c0,2.76,2.24,5,5,5h32c2.76,0,5-2.24,5-5V9C46,6.24,43.76,4,41,4z M17,20v19h-6V20H17z M11,14.47c0-1.4,1.2-2.47,3-2.47s2.93,1.07,3,2.47c0,1.4-1.12,2.53-3,2.53C12.2,17,11,15.87,11,14.47z M39,39h-6c0,0,0-9.26,0-10 c0-2-1-4-3.5-4.04h-0.08C27,24.96,26,27.02,26,29c0,0.91,0,10,0,10h-6V20h6v2.56c0,0,1.93-2.56,5.81-2.56 c3.97,0,7.19,2.73,7.19,8.26V39z&#x27;%3E%3C&#x2F;path%3E%3C&#x2F;svg%3E")'></i>
+						<span>LinkedIn</span>
+					</a>
+				</li>
+				<li>
+					<a href="mailto:saifbinshahab@proton.me" rel=" me" title="Mail">
+						<i class="icon" style='--icon: url("data:image/svg+xml,%3Csvg role=&#x27;img&#x27; viewBox=&#x27;0 0 24 24&#x27; xmlns=&#x27;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&#x27;%3E%3Ctitle%3EGmail%3C&#x2F;title%3E%3Cpath d=&#x27;M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z&#x27;&#x2F;%3E%3C&#x2F;svg%3E")'></i>
+						<span>Mail</span>
+					</a>
+				</li>
+				<li>
+					<a href="https://mastodon.social/@saifbinshahab" rel=" me" title="Mastodon">
+						<i class="icon" style='--icon: url("data:image/svg+xml,%3Csvg role=&#x27;img&#x27; viewBox=&#x27;0 0 24 24&#x27; xmlns=&#x27;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&#x27;%3E%3Ctitle%3EMastodon%3C&#x2F;title%3E%3Cpath d=&#x27;M23.268 5.313c-.35-2.578-2.617-4.61-5.304-5.004C17.51.242 15.792 0 11.813 0h-.03c-3.98 0-4.835.242-5.288.309C3.882.692 1.496 2.518.917 5.127.64 6.412.61 7.837.661 9.143c.074 1.874.088 3.745.26 5.611.118 1.24.325 2.47.62 3.68.55 2.237 2.777 4.098 4.96 4.857 2.336.792 4.849.923 7.256.38.265-.061.527-.132.786-.213.585-.184 1.27-.39 1.774-.753a.057.057 0 0 0 .023-.043v-1.809a.052.052 0 0 0-.02-.041.053.053 0 0 0-.046-.01 20.282 20.282 0 0 1-4.709.545c-2.73 0-3.463-1.284-3.674-1.818a5.593 5.593 0 0 1-.319-1.433.053.053 0 0 1 .066-.054c1.517.363 3.072.546 4.632.546.376 0 .75 0 1.125-.01 1.57-.044 3.224-.124 4.768-.422.038-.008.077-.015.11-.024 2.435-.464 4.753-1.92 4.989-5.604.008-.145.03-1.52.03-1.67.002-.512.167-3.63-.024-5.545zm-3.748 9.195h-2.561V8.29c0-1.309-.55-1.976-1.67-1.976-1.23 0-1.846.79-1.846 2.35v3.403h-2.546V8.663c0-1.56-.617-2.35-1.848-2.35-1.112 0-1.668.668-1.67 1.977v6.218H4.822V8.102c0-1.31.337-2.35 1.011-3.12.696-.77 1.608-1.164 2.74-1.164 1.311 0 2.302.5 2.962 1.498l.638 1.06.638-1.06c.66-.999 1.65-1.498 2.96-1.498 1.13 0 2.043.395 2.74 1.164.675.77 1.012 1.81 1.012 3.12z&#x27;&#x2F;%3E%3C&#x2F;svg%3E")'></i>
+						<span>Mastodon</span>
+					</a>
+				</li>
+				<li>
+					<a href="https://x.com/saifbinshahab" rel=" me" title="Twitter">
+						<i class="icon" style='--icon: url("data:image/svg+xml,%3Csvg role=&#x27;img&#x27; viewBox=&#x27;0 0 24 24&#x27; xmlns=&#x27;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&#x27;%3E%3Ctitle%3ETwitter%3C&#x2F;title%3E%3Cpath d=&#x27;M21.543 7.104c.015.211.015.423.015.636 0 6.507-4.954 14.01-14.01 14.01v-.003A13.94 13.94 0 0 1 0 19.539a9.88 9.88 0 0 0 7.287-2.041 4.93 4.93 0 0 1-4.6-3.42 4.916 4.916 0 0 0 2.223-.084A4.926 4.926 0 0 1 .96 9.167v-.062a4.887 4.887 0 0 0 2.235.616A4.928 4.928 0 0 1 1.67 3.148 13.98 13.98 0 0 0 11.82 8.292a4.929 4.929 0 0 1 8.39-4.49 9.868 9.868 0 0 0 3.128-1.196 4.941 4.941 0 0 1-2.165 2.724A9.828 9.828 0 0 0 24 4.555a10.019 10.019 0 0 1-2.457 2.549z&#x27;&#x2F;%3E%3C&#x2F;svg%3E")'></i>
+						<span>Twitter</span>
+					</a>
+				</li>
+		</ul>
+</footer>
+
+
+</body>
+</html>

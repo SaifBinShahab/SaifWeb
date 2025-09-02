@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  lang="en" data-theme="dark">
+<head>
+	<!-- 2025-09-02 Tue 19:54 -->
+	<meta charset="UTF-8" />
+	<meta name="description" content="Saif Bin Shahab is an experienced Cyber Security Specialist and Software Developer. He is also the Founder of Vault47 Cyber Security." />
+	<meta name="keywords" content="cyber security, ethical hacker, developer, portfolio, software development, web development, projects, homelab, linux" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="theme-color" content="purple" />
+		<meta name="theme-color" content="purple" media="(prefers-color-scheme:dark)" />
+	<title>Installing Nextcloud server on Linux - Saif Bin Shahab</title>
+	<link rel="canonical" href="https://saif-it.pages.dev/blog/nextcloud-install/" /><link rel="icon" type="image/png" href="https://saif-it.pages.dev/favicon.png" />
+
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="https://saif-it.pages.dev/apple-touch-icon.png" />
+
+		
+			
+				<link rel="alternate" type="application/rss+xml" title="Saif Bin Shahab - RSS Feed" href="https://saif-it.pages.dev/rss.xml">
+			
+		
+			
+				<link rel="alternate" type="application/atom+xml" title="Saif Bin Shahab - Atom Feed" href="https://saif-it.pages.dev/atom.xml">
+			
+		
+    <style type="text/css">
+	:root {--accent-color: purple;}[data-theme="dark"] {
+			--accent-color: purple;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			:root:not([data-theme="light"]) {
+				--accent-color: purple;
+			}
+		}</style>
+
+			<link type="text/css" rel="stylesheet" href="https://saif-it.pages.dev/style.css" />
+				<link type="text/css" rel="stylesheet" href="https://saif-it.pages.dev/syntax-theme-light.css" media="(prefers-color-scheme: light)" />
+				<link type="text/css" rel="stylesheet" href="https://saif-it.pages.dev/syntax-theme-dark.css" media="(prefers-color-scheme: dark)" />
+			<script type="text/javascript" defer  src="https://saif-it.pages.dev/closable.js"></script>
+			<script type="text/javascript" defer  src="https://saif-it.pages.dev/copy-button.js"></script>
+			<script type="text/javascript" defer  src="https://saif-it.pages.dev/theme-switcher.js"></script>
+
+	<meta property="og:site_name" content="Saif Bin Shahab" />
+	<meta property="og:title" content="Installing Nextcloud server on Linux - Saif Bin Shahab" />
+	<meta property="og:url" content="https://saif-it.pages.dev/blog/nextcloud-install/" />
+	<meta property="og:description" content="Saif Bin Shahab is an experienced Cyber Security Specialist and Software Developer. He is also the Founder of Vault47 Cyber Security." /><meta property="og:image" content="https://saif-it.pages.dev/card.png" /><meta property="og:locale" content="en_US" />
+</head>
+
+<body>
+
+		
+<header id="site-nav">
+	<nav>
+		<a href="#main-content" tabindex="0">
+			Skip to Main Content
+		</a>
+		<ul>
+			<li id="home">
+				<a href="https://saif-it.pages.dev">
+					<i class="icon"></i>Saif Bin Shahab</a>
+			</li>
+			<li class="divider"></li>
+					<li>
+						<a href="https://saif-it.pages.dev/blog/">Blog</a>
+					</li>
+					<li>
+						<a href="https:&#x2F;&#x2F;github.com&#x2F;saifbinshahab" rel="" class="external">GitHub</a>
+					</li>
+					<li>
+						<a href="https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;saif-bin-shahab" rel="" class="external">LinkedIn</a>
+					</li>
+				<li id="theme-switcher">
+					<details class="closable">
+						<summary class="circle" title="Theme">
+							<i class="icon"></i>
+						</summary>
+						<ul>
+							<li>
+								<button class="circle" id="theme-light" title="Switch to Light Theme">
+									<i class="icon"></i>
+								</button>
+							</li>
+							<li>
+								<button class="circle" id="theme-dark" title="Switch to Dark Theme">
+									<i class="icon"></i>
+								</button>
+							</li>
+							<li>
+								<button class="circle" id="theme-system" title="Use System Theme">
+									<i class="icon"></i>
+								</button>
+							</li>
+						</ul>
+					</details>
+				</li><li id="feed">
+					<details class="closable">
+						<summary class="circle" title="Feed">
+							<i class="icon"></i>
+						</summary>
+						<ul>
+								<li>
+									<a href="https://saif-it.pages.dev/rss.xml" rel="">RSS</a>
+								</li>
+								<li>
+									<a href="https://saif-it.pages.dev/atom.xml" rel="">Atom</a>
+								</li></ul>
+					</details>
+				</li>
+		</ul>
+	</nav>
+</header>
+<main id="main-content">
+		<article><div id="heading"><p>
+				<small>
+					<time datetime=" 2025-08-25T00:00:00+00:00">Published on
+						August 25, 2025</time></small>
+			</p><h1>Installing Nextcloud server on Linux</h1><p>
+				<small><span>0 minute read</span><span> • </span></small>
+			</p>
+				<ul class="tags"><li><a class="tag" href="https://saif-it.pages.dev/tags/linux/">Linux</a></li><li><a class="tag" href="https://saif-it.pages.dev/tags/homelab/">Homelab</a></li><li><a class="tag" href="https://saif-it.pages.dev/tags/server/">Server</a></li>
+				</ul>
+	</div>
+
+	<div id="buttons-container"><a id="go-to-top" href="#top" title="Go to Top"><i class="icon"></i></a><a id="share" href="https://shareopenly.org/share/?url=https:&#x2F;&#x2F;saif-it.pages.dev&#x2F;blog&#x2F;nextcloud-install&#x2F;" rel="" title="Share"><i class="icon"></i></a></div><pre data-lang="sh" class="language-sh z-code"><code class="language-sh" data-lang="sh"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">sudo</span></span><span class="z-meta z-function-call z-arguments z-shell"> apt update</span> <span class="z-keyword z-operator z-logical z-and z-shell">&amp;&amp;</span> <span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">sudo</span></span><span class="z-meta z-function-call z-arguments z-shell"> apt full-upgrade<span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> -</span>y</span></span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">aria2c</span></span><span class="z-meta z-function-call z-arguments z-shell"><span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> -</span>j32</span><span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> -</span>s32</span> https://download.nextcloud.com/server/releases/latest.zip<span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> -</span>o</span> nextcloud.zip</span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">sudo</span></span><span class="z-meta z-function-call z-arguments z-shell"> apt install<span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> -</span>y</span> mariadb-server apache2  unzip smbclient imagemagick libmagickcore-6.q16-6-extra memcached libmemcached-tools php php-fpm php-imagick php-memcached php-apcu php-gd php-mysql php-curl php-mbstring php-intl php-gmp php-xml php-zip php-bz2 php-common php-cli php-bcmath</span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">sudo</span></span><span class="z-meta z-function-call z-arguments z-shell"> systemctl status mariadb <span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> It should be active and running.</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span></span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">sudo</span></span><span class="z-meta z-function-call z-arguments z-shell"> mysql_secure_installation</span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">sudo</span></span><span class="z-meta z-function-call z-arguments z-shell"> mariadb<span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> -</span>u</span> root<span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> -</span>p</span></span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">CREATE</span></span><span class="z-meta z-function-call z-arguments z-shell"> USER <span class="z-string z-quoted z-single z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&#39;</span>nextcloud<span class="z-punctuation z-definition z-string z-end z-shell">&#39;</span></span>@<span class="z-string z-quoted z-single z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&#39;</span>localhost<span class="z-punctuation z-definition z-string z-end z-shell">&#39;</span></span> IDENTIFIED BY <span class="z-string z-quoted z-single z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&#39;</span>password<span class="z-punctuation z-definition z-string z-end z-shell">&#39;</span></span></span><span class="z-keyword z-operator z-logical z-continue z-shell">;</span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">CREATE</span></span><span class="z-meta z-function-call z-arguments z-shell"> DATABASE IF NOT EXISTS db CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci</span><span class="z-keyword z-operator z-logical z-continue z-shell">;</span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">SHOW</span></span><span class="z-meta z-function-call z-arguments z-shell"> DATABASES</span><span class="z-keyword z-operator z-logical z-continue z-shell">;</span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">GRANT</span></span><span class="z-meta z-function-call z-arguments z-shell"> ALL PRIVILEGES ON db.<span class="z-keyword z-operator z-regexp z-quantifier z-shell">*</span> TO <span class="z-string z-quoted z-single z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&#39;</span>nextcloud<span class="z-punctuation z-definition z-string z-end z-shell">&#39;</span></span>@<span class="z-string z-quoted z-single z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&#39;</span>localhost<span class="z-punctuation z-definition z-string z-end z-shell">&#39;</span></span></span><span class="z-keyword z-operator z-logical z-continue z-shell">;</span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">FLUSH</span></span><span class="z-meta z-function-call z-arguments z-shell"> PRIVILEGES</span><span class="z-keyword z-operator z-logical z-continue z-shell">;</span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">quit</span></span><span class="z-keyword z-operator z-logical z-continue z-shell">;</span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">sudo</span></span><span class="z-meta z-function-call z-arguments z-shell"> cp nextcloud.zip /var/www/</span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-support z-function z-cd z-shell">cd</span></span><span class="z-meta z-function-call z-arguments z-shell"> /var/www</span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">sudo</span></span><span class="z-meta z-function-call z-arguments z-shell"> unzip nextcloud.zip</span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">sudo</span></span><span class="z-meta z-function-call z-arguments z-shell"> chown<span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> -</span>R</span> www-data:www-data /var/www/nextcloud</span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">sudo</span></span><span class="z-meta z-function-call z-arguments z-shell"> phpenmod bcmath gmp imagick intl</span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">sudo</span></span><span class="z-meta z-function-call z-arguments z-shell"> a2dissite 000-default.conf</span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">sudo</span></span><span class="z-meta z-function-call z-arguments z-shell"> a2enconf php8.2-fpm</span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">sudo</span></span><span class="z-meta z-function-call z-arguments z-shell"> a2enmod headers rewrite mpm_event http2 mime proxy proxy_fcgi setenvif alias dir env ssl proxy_http proxy_wstunnel</span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> apache config</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-keyword z-operator z-assignment z-redirection z-shell">&lt;</span>VirtualHost <span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">*:80</span></span><span class="z-meta z-function-call z-arguments z-shell"><span class="z-keyword z-operator z-assignment z-redirection z-shell">&gt;</span>
+</span></span><span class="z-source z-shell z-bash">        <span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">Protocols</span></span><span class="z-meta z-function-call z-arguments z-shell"> h2 h2c http/1.1</span>
+</span><span class="z-source z-shell z-bash">        <span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">ServerName</span></span><span class="z-meta z-function-call z-arguments z-shell"> 10.11.0.23</span>
+</span><span class="z-source z-shell z-bash">        <span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">DocumentRoot</span></span><span class="z-meta z-function-call z-arguments z-shell"> /var/www/nextcloud</span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash">        <span class="z-keyword z-operator z-assignment z-redirection z-shell">&lt;</span>IfModule <span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">mod_headers.c</span></span><span class="z-meta z-function-call z-arguments z-shell"><span class="z-keyword z-operator z-assignment z-redirection z-shell">&gt;</span>
+</span></span><span class="z-source z-shell z-bash">          <span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">Header</span></span><span class="z-meta z-function-call z-arguments z-shell"> always set Strict-Transport-Security <span class="z-string z-quoted z-double z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&quot;</span>max-age=15552000; includeSubDomains<span class="z-punctuation z-definition z-string z-end z-shell">&quot;</span></span></span>
+</span><span class="z-source z-shell z-bash">        <span class="z-keyword z-operator z-assignment z-redirection z-shell">&lt;</span>/IfModule<span class="z-keyword z-operator z-assignment z-redirection z-shell">&gt;</span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash">        <span class="z-keyword z-operator z-assignment z-redirection z-shell">&lt;</span>FilesMatch <span class="z-constant z-character z-escape z-shell">\.</span><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">php$</span></span><span class="z-meta z-function-call z-arguments z-shell"><span class="z-keyword z-operator z-assignment z-redirection z-shell">&gt;</span>
+</span></span><span class="z-source z-shell z-bash">          <span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">SetHandler</span></span><span class="z-meta z-function-call z-arguments z-shell"> <span class="z-string z-quoted z-double z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&quot;</span>proxy:unix:/var/run/php/php8.2-fpm.sock|fcgi://localhost<span class="z-punctuation z-definition z-string z-end z-shell">&quot;</span></span></span>
+</span><span class="z-source z-shell z-bash">        <span class="z-keyword z-operator z-assignment z-redirection z-shell">&lt;</span>/FilesMatch<span class="z-keyword z-operator z-assignment z-redirection z-shell">&gt;</span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash">        <span class="z-keyword z-operator z-assignment z-redirection z-shell">&lt;</span>Directory <span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">/var/www/nextcloud/</span></span><span class="z-meta z-function-call z-arguments z-shell"><span class="z-keyword z-operator z-assignment z-redirection z-shell">&gt;</span>
+</span></span><span class="z-source z-shell z-bash">                <span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">Satisfy</span></span><span class="z-meta z-function-call z-arguments z-shell"> Any</span>
+</span><span class="z-source z-shell z-bash">                <span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">Require</span></span><span class="z-meta z-function-call z-arguments z-shell"> all granted</span>
+</span><span class="z-source z-shell z-bash">                <span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">Options</span></span><span class="z-meta z-function-call z-arguments z-shell"> FollowSymlinks MultiViews</span>
+</span><span class="z-source z-shell z-bash">                <span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">AllowOverride</span></span><span class="z-meta z-function-call z-arguments z-shell"> All</span>
+</span><span class="z-source z-shell z-bash">                <span class="z-keyword z-operator z-assignment z-redirection z-shell">&lt;</span>IfModule <span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">mod_dav.c</span></span><span class="z-meta z-function-call z-arguments z-shell"><span class="z-keyword z-operator z-assignment z-redirection z-shell">&gt;</span>
+</span></span><span class="z-source z-shell z-bash">                        <span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">Dav</span></span><span class="z-meta z-function-call z-arguments z-shell"> off</span>
+</span><span class="z-source z-shell z-bash">                <span class="z-keyword z-operator z-assignment z-redirection z-shell">&lt;</span>/IfModule<span class="z-keyword z-operator z-assignment z-redirection z-shell">&gt;</span>
+</span><span class="z-source z-shell z-bash">        <span class="z-keyword z-operator z-assignment z-redirection z-shell">&lt;</span>/Directory<span class="z-keyword z-operator z-assignment z-redirection z-shell">&gt;</span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash">        <span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">ErrorLog</span></span><span class="z-meta z-function-call z-arguments z-shell"> /var/log/apache2/nextcloud-error.log</span>
+</span><span class="z-source z-shell z-bash">        <span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">CustomLog</span></span><span class="z-meta z-function-call z-arguments z-shell"> /var/log/apache2/nextcloud-access.log common</span>
+</span><span class="z-source z-shell z-bash"><span class="z-keyword z-operator z-assignment z-redirection z-shell">&lt;</span>/VirtualHost<span class="z-keyword z-operator z-assignment z-redirection z-shell">&gt;</span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">sudo</span></span><span class="z-meta z-function-call z-arguments z-shell"> a2ensite nextcloud.conf</span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">sudo</span></span><span class="z-meta z-function-call z-arguments z-shell"> vim /etc/memcached.conf <span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> change &quot;-m 64&quot; to &quot;-m 1024&quot;</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span></span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">sudo</span></span><span class="z-meta z-function-call z-arguments z-shell"> vim /etc/php/8.2/fpm/pool.d/www.conf</span>
+</span><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> config</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">pm.max_children</span></span><span class="z-meta z-function-call z-arguments z-shell"> = 80</span>
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">pm.start_servers</span></span><span class="z-meta z-function-call z-arguments z-shell"> = 20</span>
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">pm.min_spare_servers</span></span><span class="z-meta z-function-call z-arguments z-shell"> = 20</span>
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">pm.max_spare_servers</span></span><span class="z-meta z-function-call z-arguments z-shell"> = 60</span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> uncomment these lines:</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">env[HOSTNAME]</span></span><span class="z-meta z-function-call z-arguments z-shell"> = <span class="z-meta z-group z-expansion z-parameter z-shell"><span class="z-punctuation z-definition z-variable z-shell">$</span><span class="z-variable z-other z-readwrite z-shell">HOSTNAME</span></span></span>
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">env[PATH]</span></span><span class="z-meta z-function-call z-arguments z-shell"> = /usr/local/bin:/usr/bin:/bin</span>
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">env[TMP]</span></span><span class="z-meta z-function-call z-arguments z-shell"> = /tmp</span>
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">env[TMPDIR]</span></span><span class="z-meta z-function-call z-arguments z-shell"> = /tmp</span>
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">env[TEMP]</span></span><span class="z-meta z-function-call z-arguments z-shell"> = /tmp</span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell">## php config</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">sudo</span></span><span class="z-meta z-function-call z-arguments z-shell"> vim /etc/php/8.2/fpm/php.ini <span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> And</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span></span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">sudo</span></span><span class="z-meta z-function-call z-arguments z-shell"> vim /etc/php/8.2/apache2/php.ini</span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">memory_limit</span></span><span class="z-meta z-function-call z-arguments z-shell"> = 2048M</span>
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">post_max_size</span></span><span class="z-meta z-function-call z-arguments z-shell"> = 1024M</span>
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">upload_max_filesize</span></span><span class="z-meta z-function-call z-arguments z-shell"> = 5G</span>
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">max_execution_time</span></span><span class="z-meta z-function-call z-arguments z-shell"> = 360</span>
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">date.timezone</span></span><span class="z-meta z-function-call z-arguments z-shell"> = Asia/Dhaka</span>
+</span><span class="z-source z-shell z-bash"><span class="z-variable z-other z-readwrite z-assignment z-shell">pdo_mysql.default_socket</span><span class="z-keyword z-operator z-assignment z-shell">=</span><span class="z-string z-unquoted z-shell">/run/mysqld/mysqld.sock</span> <span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> If cannot find the sock file the look into &quot;sudo systemctl status mariadb&quot;. It will be in the status log.</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> down in opcache settings:</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-variable z-other z-readwrite z-assignment z-shell">opcache.enable</span><span class="z-keyword z-operator z-assignment z-shell">=</span><span class="z-string z-unquoted z-shell">1</span>
+</span><span class="z-source z-shell z-bash"><span class="z-variable z-other z-readwrite z-assignment z-shell">opcache.memory_consumption</span><span class="z-keyword z-operator z-assignment z-shell">=</span><span class="z-string z-unquoted z-shell">1024</span>
+</span><span class="z-source z-shell z-bash"><span class="z-variable z-other z-readwrite z-assignment z-shell">opcache.interned_strings_buffer</span><span class="z-keyword z-operator z-assignment z-shell">=</span><span class="z-string z-unquoted z-shell">64</span>
+</span><span class="z-source z-shell z-bash"><span class="z-variable z-other z-readwrite z-assignment z-shell">opcache.max_accelerated_files</span><span class="z-keyword z-operator z-assignment z-shell">=</span><span class="z-string z-unquoted z-shell">150000</span>
+</span><span class="z-source z-shell z-bash"><span class="z-variable z-other z-readwrite z-assignment z-shell">opcache.max_wasted_percentage</span><span class="z-keyword z-operator z-assignment z-shell">=</span><span class="z-string z-unquoted z-shell">15</span>
+</span><span class="z-source z-shell z-bash"><span class="z-variable z-other z-readwrite z-assignment z-shell">opcache.revalidate_freq</span><span class="z-keyword z-operator z-assignment z-shell">=</span><span class="z-string z-unquoted z-shell">60</span>
+</span><span class="z-source z-shell z-bash"><span class="z-variable z-other z-readwrite z-assignment z-shell">opcache.save_comments</span><span class="z-keyword z-operator z-assignment z-shell">=</span><span class="z-string z-unquoted z-shell">1</span>
+</span><span class="z-source z-shell z-bash"><span class="z-variable z-other z-readwrite z-assignment z-shell">opcache.jit</span><span class="z-keyword z-operator z-assignment z-shell">=</span><span class="z-string z-unquoted z-shell">1255</span>
+</span><span class="z-source z-shell z-bash"><span class="z-variable z-other z-readwrite z-assignment z-shell">opcache.jit_buffer_size</span><span class="z-keyword z-operator z-assignment z-shell">=</span><span class="z-string z-unquoted z-shell">256M</span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">sudo</span></span><span class="z-meta z-function-call z-arguments z-shell"> systemctl restart apache2</span>
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">sudo</span></span><span class="z-meta z-function-call z-arguments z-shell"> systemctl restart memcached</span>
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">sudo</span></span><span class="z-meta z-function-call z-arguments z-shell"> systemctl restart php8.2-fpm</span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">sudo</span></span><span class="z-meta z-function-call z-arguments z-shell"> mkdir /storage/nextcloud_data</span>
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">sudo</span></span><span class="z-meta z-function-call z-arguments z-shell"> chown<span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> -</span>R</span> www-data:www-data /storage/nextcloud_data</span>
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">sudo</span></span><span class="z-meta z-function-call z-arguments z-shell"> chmod 777 /storage/nextcloud_data</span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> Go to nextcloud webpage and initialize.</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> nextcloud config</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">sudo</span></span><span class="z-meta z-function-call z-arguments z-shell"> vim /var/www/nextcloud/config/config.php</span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell"><span class="z-string z-quoted z-single z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&#39;</span>memcache.local<span class="z-punctuation z-definition z-string z-end z-shell">&#39;</span></span></span></span><span class="z-meta z-function-call z-arguments z-shell"> =<span class="z-keyword z-operator z-assignment z-redirection z-shell">&gt;</span> <span class="z-string z-quoted z-single z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&#39;</span>\OC\Memcache\APCu<span class="z-punctuation z-definition z-string z-end z-shell">&#39;</span></span>,</span>
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell"><span class="z-string z-quoted z-single z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&#39;</span>memcache.distributed<span class="z-punctuation z-definition z-string z-end z-shell">&#39;</span></span></span></span><span class="z-meta z-function-call z-arguments z-shell"> =<span class="z-keyword z-operator z-assignment z-redirection z-shell">&gt;</span> <span class="z-string z-quoted z-single z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&#39;</span>\OC\Memcache\Memcached<span class="z-punctuation z-definition z-string z-end z-shell">&#39;</span></span>,</span>
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell"><span class="z-string z-quoted z-single z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&#39;</span>memcache.locking<span class="z-punctuation z-definition z-string z-end z-shell">&#39;</span></span></span></span><span class="z-meta z-function-call z-arguments z-shell"> =<span class="z-keyword z-operator z-assignment z-redirection z-shell">&gt;</span> <span class="z-string z-quoted z-single z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&#39;</span>\OC\Memcache\Memcached<span class="z-punctuation z-definition z-string z-end z-shell">&#39;</span></span>,</span>
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell"><span class="z-string z-quoted z-single z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&#39;</span>default_phone_region<span class="z-punctuation z-definition z-string z-end z-shell">&#39;</span></span></span></span><span class="z-meta z-function-call z-arguments z-shell"> =<span class="z-keyword z-operator z-assignment z-redirection z-shell">&gt;</span> <span class="z-string z-quoted z-single z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&#39;</span>BD<span class="z-punctuation z-definition z-string z-end z-shell">&#39;</span></span>,</span>
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell"><span class="z-string z-quoted z-single z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&#39;</span>maintenance_window_start<span class="z-punctuation z-definition z-string z-end z-shell">&#39;</span></span></span></span><span class="z-meta z-function-call z-arguments z-shell"> =<span class="z-keyword z-operator z-assignment z-redirection z-shell">&gt;</span> <span class="z-constant z-numeric z-integer z-decimal z-file-descriptor z-shell">1</span>, <span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> The time here is in UTC. We are setting it to 7.</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span></span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell"><span class="z-string z-quoted z-single z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&#39;</span>filesystem_check_changes<span class="z-punctuation z-definition z-string z-end z-shell">&#39;</span></span></span></span><span class="z-meta z-function-call z-arguments z-shell"> =<span class="z-keyword z-operator z-assignment z-redirection z-shell">&gt;</span> <span class="z-constant z-numeric z-integer z-decimal z-file-descriptor z-shell">1</span>,</span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">*Optional</span></span><span class="z-meta z-function-call z-arguments z-shell"> but highly recommended<span class="z-keyword z-operator z-regexp z-quantifier z-shell">*</span></span>
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">Enable</span></span><span class="z-meta z-function-call z-arguments z-shell"> OCC<span class="z-keyword z-operator z-end-of-options z-shell"> --</span></span><span class="z-meta z-function-call z-arguments z-shell"> nextcloud command line function</span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">sudo</span></span><span class="z-meta z-function-call z-arguments z-shell"> vim /etc/php/8.2/mods-available/apcu.ini</span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">add</span></span><span class="z-meta z-function-call z-arguments z-shell"> the following line at the bottom:</span>
+</span><span class="z-source z-shell z-bash"><span class="z-variable z-other z-readwrite z-assignment z-shell">apc.enable_cli</span><span class="z-keyword z-operator z-assignment z-shell">=</span><span class="z-string z-unquoted z-shell">1</span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">save</span></span><span class="z-meta z-function-call z-arguments z-shell"> and exit</span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">in</span></span><span class="z-meta z-function-call z-arguments z-shell"> nextcloud go to</span>
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">administration</span></span><span class="z-meta z-function-call z-arguments z-shell"> settings  --<span class="z-keyword z-operator z-assignment z-redirection z-shell">&gt;</span> basic settings --<span class="z-keyword z-operator z-assignment z-redirection z-shell">&gt;</span> change from Ajax to Cron (recommended</span><span class="z-meta z-function-call z-shell"></span>)
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-keyword z-control z-conditional z-if z-shell">if</span> <span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">you</span></span><span class="z-meta z-function-call z-arguments z-shell"> want to test if cron is working</span>
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">sudo</span></span><span class="z-meta z-function-call z-arguments z-shell"><span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> -</span>u</span> www-data php<span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> -</span>f</span> /var/www/nextcloud/cron.php</span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-keyword z-control z-conditional z-if z-shell">if</span> <span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">you</span></span><span class="z-meta z-function-call z-arguments z-shell"> see nothing it is working, if you get an error it is not working</span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">sudo</span></span><span class="z-meta z-function-call z-arguments z-shell"> crontab<span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> -</span>u</span> www-data<span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> -</span>e</span></span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> Append the line in the configuration. This should run the command every 5 minutes. (Recommended by Nextcloud)</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">*/5</span></span><span class="z-meta z-function-call z-arguments z-shell"> <span class="z-keyword z-operator z-regexp z-quantifier z-shell">*</span> <span class="z-keyword z-operator z-regexp z-quantifier z-shell">*</span> <span class="z-keyword z-operator z-regexp z-quantifier z-shell">*</span> <span class="z-keyword z-operator z-regexp z-quantifier z-shell">*</span> php<span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> -</span>f</span> /var/www/nextcloud/cron.php</span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> To make it run the command every day at 13:00 Hrs.</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">0</span></span><span class="z-meta z-function-call z-arguments z-shell"> 13 <span class="z-keyword z-operator z-regexp z-quantifier z-shell">*</span> <span class="z-keyword z-operator z-regexp z-quantifier z-shell">*</span> <span class="z-keyword z-operator z-regexp z-quantifier z-shell">*</span> php<span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> -</span>f</span> /var/www/nextcloud/cron.php</span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> You can verify if the cron job has been added and scheduled by executing:</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">sudo</span></span><span class="z-meta z-function-call z-arguments z-shell"> crontab<span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> -</span>u</span> www-data<span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> -</span>l</span></span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> Install &quot;Preview Generator&quot; and &quot;Memories&quot; from Nextcloud app store and setup memories app from the dashboard.</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">sudo</span></span><span class="z-meta z-function-call z-arguments z-shell"><span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> -</span>u</span> www-data php /var/www/nextcloud/occ memories:index</span>
+</span><span class="z-source z-shell z-bash">
+</span></code></pre>
+
+</article><hr />
+	<nav id="post-nav"><a class="post-nav-item post-nav-prev" href="https:&#x2F;&#x2F;saif-it.pages.dev&#x2F;blog&#x2F;nfs-share-linux&#x2F;">
+				<div class="nav-arrow">Previous</div>
+				<span class="post-title">Setting up NFS Share on Linux</span>
+			</a><a class="post-nav-item post-nav-next" href="https:&#x2F;&#x2F;saif-it.pages.dev&#x2F;blog&#x2F;modsecurity-install-nginx&#x2F;">
+				<div class="nav-arrow">Next</div>
+				<span class="post-title">Setting up ModSecurity WAF for Nginx Webserver</span>
+			</a></nav>
+		
+	<span id="copy-code-text" class="hidden">Copy Code</span>
+
+	</main>
+	<footer id="site-footer">
+			<p>&copy; Saif Bin Shahab, 2025</p>
+		<ul id="socials">
+				<li>
+					<a href="https://github.com/saifbinshahab" rel=" me" title="GitHub">
+						<i class="icon" style='--icon: url("data:image/svg+xml,%3Csvg role=&#x27;img&#x27; viewBox=&#x27;0 0 24 24&#x27; xmlns=&#x27;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&#x27;%3E%3Ctitle%3EGitHub%3C&#x2F;title%3E%3Cpath d=&#x27;M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12&#x27;&#x2F;%3E%3C&#x2F;svg%3E")'></i>
+						<span>GitHub</span>
+					</a>
+				</li>
+				<li>
+					<a href="https://www.linkedin.com/in/saif-bin-shahab" rel=" me" title="LinkedIn">
+						<i class="icon" style='--icon: url("data:image/svg+xml,%3Csvg xmlns=&#x27;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&#x27; x=&#x27;0px&#x27; y=&#x27;0px&#x27; width=&#x27;100&#x27; height=&#x27;100&#x27; viewBox=&#x27;0 0 50 50&#x27;%3E%3Cpath d=&#x27;M41,4H9C6.24,4,4,6.24,4,9v32c0,2.76,2.24,5,5,5h32c2.76,0,5-2.24,5-5V9C46,6.24,43.76,4,41,4z M17,20v19h-6V20H17z M11,14.47c0-1.4,1.2-2.47,3-2.47s2.93,1.07,3,2.47c0,1.4-1.12,2.53-3,2.53C12.2,17,11,15.87,11,14.47z M39,39h-6c0,0,0-9.26,0-10 c0-2-1-4-3.5-4.04h-0.08C27,24.96,26,27.02,26,29c0,0.91,0,10,0,10h-6V20h6v2.56c0,0,1.93-2.56,5.81-2.56 c3.97,0,7.19,2.73,7.19,8.26V39z&#x27;%3E%3C&#x2F;path%3E%3C&#x2F;svg%3E")'></i>
+						<span>LinkedIn</span>
+					</a>
+				</li>
+				<li>
+					<a href="mailto:saifbinshahab@proton.me" rel=" me" title="Mail">
+						<i class="icon" style='--icon: url("data:image/svg+xml,%3Csvg role=&#x27;img&#x27; viewBox=&#x27;0 0 24 24&#x27; xmlns=&#x27;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&#x27;%3E%3Ctitle%3EGmail%3C&#x2F;title%3E%3Cpath d=&#x27;M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z&#x27;&#x2F;%3E%3C&#x2F;svg%3E")'></i>
+						<span>Mail</span>
+					</a>
+				</li>
+				<li>
+					<a href="https://mastodon.social/@saifbinshahab" rel=" me" title="Mastodon">
+						<i class="icon" style='--icon: url("data:image/svg+xml,%3Csvg role=&#x27;img&#x27; viewBox=&#x27;0 0 24 24&#x27; xmlns=&#x27;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&#x27;%3E%3Ctitle%3EMastodon%3C&#x2F;title%3E%3Cpath d=&#x27;M23.268 5.313c-.35-2.578-2.617-4.61-5.304-5.004C17.51.242 15.792 0 11.813 0h-.03c-3.98 0-4.835.242-5.288.309C3.882.692 1.496 2.518.917 5.127.64 6.412.61 7.837.661 9.143c.074 1.874.088 3.745.26 5.611.118 1.24.325 2.47.62 3.68.55 2.237 2.777 4.098 4.96 4.857 2.336.792 4.849.923 7.256.38.265-.061.527-.132.786-.213.585-.184 1.27-.39 1.774-.753a.057.057 0 0 0 .023-.043v-1.809a.052.052 0 0 0-.02-.041.053.053 0 0 0-.046-.01 20.282 20.282 0 0 1-4.709.545c-2.73 0-3.463-1.284-3.674-1.818a5.593 5.593 0 0 1-.319-1.433.053.053 0 0 1 .066-.054c1.517.363 3.072.546 4.632.546.376 0 .75 0 1.125-.01 1.57-.044 3.224-.124 4.768-.422.038-.008.077-.015.11-.024 2.435-.464 4.753-1.92 4.989-5.604.008-.145.03-1.52.03-1.67.002-.512.167-3.63-.024-5.545zm-3.748 9.195h-2.561V8.29c0-1.309-.55-1.976-1.67-1.976-1.23 0-1.846.79-1.846 2.35v3.403h-2.546V8.663c0-1.56-.617-2.35-1.848-2.35-1.112 0-1.668.668-1.67 1.977v6.218H4.822V8.102c0-1.31.337-2.35 1.011-3.12.696-.77 1.608-1.164 2.74-1.164 1.311 0 2.302.5 2.962 1.498l.638 1.06.638-1.06c.66-.999 1.65-1.498 2.96-1.498 1.13 0 2.043.395 2.74 1.164.675.77 1.012 1.81 1.012 3.12z&#x27;&#x2F;%3E%3C&#x2F;svg%3E")'></i>
+						<span>Mastodon</span>
+					</a>
+				</li>
+				<li>
+					<a href="https://x.com/saifbinshahab" rel=" me" title="Twitter">
+						<i class="icon" style='--icon: url("data:image/svg+xml,%3Csvg role=&#x27;img&#x27; viewBox=&#x27;0 0 24 24&#x27; xmlns=&#x27;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&#x27;%3E%3Ctitle%3ETwitter%3C&#x2F;title%3E%3Cpath d=&#x27;M21.543 7.104c.015.211.015.423.015.636 0 6.507-4.954 14.01-14.01 14.01v-.003A13.94 13.94 0 0 1 0 19.539a9.88 9.88 0 0 0 7.287-2.041 4.93 4.93 0 0 1-4.6-3.42 4.916 4.916 0 0 0 2.223-.084A4.926 4.926 0 0 1 .96 9.167v-.062a4.887 4.887 0 0 0 2.235.616A4.928 4.928 0 0 1 1.67 3.148 13.98 13.98 0 0 0 11.82 8.292a4.929 4.929 0 0 1 8.39-4.49 9.868 9.868 0 0 0 3.128-1.196 4.941 4.941 0 0 1-2.165 2.724A9.828 9.828 0 0 0 24 4.555a10.019 10.019 0 0 1-2.457 2.549z&#x27;&#x2F;%3E%3C&#x2F;svg%3E")'></i>
+						<span>Twitter</span>
+					</a>
+				</li>
+		</ul>
+</footer>
+
+
+</body>
+</html>
