@@ -1,2 +1,5 @@
 .env
 upload.sh
+.wrangler
+node_modules/**
+package*
