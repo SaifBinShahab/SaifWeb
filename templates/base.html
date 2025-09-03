@@ -11,6 +11,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml" {% if lang in rtl_languages %}dir="rtl"{% endif %} lang="{{ lang }}" {% include "duckquill/templates/partials/default_theme.html" %}>
 {% include "partials/head.html" %}
 <body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KBK5T6P9"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
 {% block body %}
 	{%- if config.extra.nav.links %}
 		{% include "duckquill/templates/partials/nav.html" %}
