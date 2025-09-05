@@ -42,12 +42,12 @@ Some relevant experiences in my career.
    - Established a Cyber Security company in Bangladesh to secure businesses and organizations.
    - Conducted business proposal campaigns and created new connections.
    - Conducted content marketing campaign.
-   - Created business portofolio website and necessary documents.
+   - Created business portfolio website and necessary documents.
 
 - Software Engineer @ Devs Core [2021 - Present]
    - Developed custom OpenWRT firmware for routers with captive portal.
-   - Helped the company double in valuation and raise huge invesments with these projects.
-   - Conducted basic Cyber Security audit and created well documented audit report.
+   - Helped the company more than 2x in valuation and raise huge investments with our projects.
+   - Conducted Cyber Security audit and created well documented audit report.
    - Recovered production server from failure within half an hour, performed database recovery and briefed recovery report.
    - Helped the team with Linux and Windows System Administration. 
    - Got "Enthusiastic Developer of the Year" Award and Certificate of Appreciation for outstanding performance.
@@ -69,7 +69,7 @@ Some relevant experiences in my career.
 - Ethical Hacking for Beginners by David Bombal.
 - IEEE Cyber Security Workshop.
 - Certification of appreciation from Devs Core.
-- Money Management certification.
+- Money Management certification by Mohaimin Patwary.
 - Professional Selling Skills certification by Yousuf Efti.
 - Diploma in Islamic Science at Zad Academy. (Ongoing)
 - Book Reading programme by British Council.
