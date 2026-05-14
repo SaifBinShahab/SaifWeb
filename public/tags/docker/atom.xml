@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>Saif Bin Shahab - Docker</title>
+    <subtitle>Saif Bin Shahab is an experienced Cyber Security Specialist and Software Developer. He is also the Founder of Vault47 Cyber Security.</subtitle>
+    <link rel="self" type="application/atom+xml" href="https://saif-it.pages.dev/tags/docker/atom.xml"/>
+    <link rel="alternate" type="text/html" href="https://saif-it.pages.dev"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2025-08-25T00:00:00+00:00</updated>
+    <id>https://saif-it.pages.dev/tags/docker/atom.xml</id>
+    <entry xml:lang="en">
+        <title>Installing Traefik on Linux</title>
+        <published>2025-08-25T00:00:00+00:00</published>
+        <updated>2025-08-25T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://saif-it.pages.dev/blog/traefik-installation-linux/"/>
+        <id>https://saif-it.pages.dev/blog/traefik-installation-linux/</id>
+        
+        <content type="html" xml:base="https://saif-it.pages.dev/blog/traefik-installation-linux/">&lt;h2 id=&quot;docker-setup&quot;&gt;Docker Setup&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;firewall-limitations&quot;&gt;Firewall limitations:&lt;&#x2F;h3&gt;
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;Warning&lt;&#x2F;strong&gt;&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Before you install Docker, make sure you consider the following security implications and firewall incompatibilities.&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;If you use ufw or firewalld to manage firewall settings, be aware that when you expose container ports using Docker, these ports bypass your firewall rules. For more information, refer to Docker and ufw.&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;Docker is only compatible with &lt;code&gt;iptables-nft&lt;&#x2F;code&gt; and &lt;code&gt;iptables-legacy&lt;&#x2F;code&gt;. Firewall rules created with &lt;code&gt;nft&lt;&#x2F;code&gt; are not supported on a system with Docker installed. Make sure that any firewall rulesets you use are created with &lt;code&gt;iptables&lt;&#x2F;code&gt; or &lt;code&gt;ip6tables&lt;&#x2F;code&gt;, and that you add them to the &lt;code&gt;DOCKER-USER&lt;&#x2F;code&gt; chain, see Packet filtering and firewalls.
+ &lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h3 id=&quot;intallation-debian&quot;&gt;Intallation (Debian)&lt;&#x2F;h3&gt;
+&lt;pre&gt;&lt;code data-lang=&quot;sh&quot;&gt;# Add Docker&amp;#39;s official GPG key:
+sudo apt-get update
+sudo apt-get install ca-certificates curl
+sudo install -m 0755 -d &#x2F;etc&#x2F;apt&#x2F;keyrings
+sudo curl -fsSL https:&#x2F;&#x2F;download.docker.com&#x2F;linux&#x2F;debian&#x2F;gpg -o &#x2F;etc&#x2F;apt&#x2F;keyrings&#x2F;docker.asc
+sudo chmod a+r &#x2F;etc&#x2F;apt&#x2F;keyrings&#x2F;docker.asc
+
+# Add the repository to Apt sources:
+echo \
+  &amp;quot;deb [arch=$(dpkg --print-architecture) signed-by=&#x2F;etc&#x2F;apt&#x2F;keyrings&#x2F;docker.asc] https:&#x2F;&#x2F;download.docker.com&#x2F;linux&#x2F;debian \
+  $(. &#x2F;etc&#x2F;os-release &amp;amp;&amp;amp; echo &amp;quot;$VERSION_CODENAME&amp;quot;) stable&amp;quot; | \
+  sudo tee &#x2F;etc&#x2F;apt&#x2F;sources.list.d&#x2F;docker.list &amp;gt; &#x2F;dev&#x2F;null
+
+# Update apt database
+sudo apt update
+
+# Install docker and other goodies
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt; &lt;&#x2F;p&gt;
+&lt;p&gt;Verify that the installation is successful by running the hello-world image:&lt;&#x2F;p&gt;
+&lt;pre&gt;&lt;code data-lang=&quot;sh&quot;&gt;sudo docker run hello-world
+&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt; &lt;&#x2F;p&gt;
+&lt;h2 id=&quot;traefik&quot;&gt;Traefik&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Create a directory for traefik.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;pre&gt;&lt;code data-lang=&quot;sh&quot;&gt;mkdir traefik
+cd traefik
+&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt; &lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Create a new bridge network to have docker’s dns resolution. (Here named &lt;code&gt;docbridge&lt;&#x2F;code&gt;)&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;pre&gt;&lt;code data-lang=&quot;sh&quot;&gt;sudo docker network create docbridge
+&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt; &lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Create a &lt;code&gt;docker-compose.yml&lt;&#x2F;code&gt; file with the following content:&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;pre&gt;&lt;code data-lang=&quot;sh&quot;&gt;vim docker-compose.yml
+&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt; &lt;&#x2F;p&gt;
+&lt;p&gt;Put the following config:&lt;&#x2F;p&gt;
+&lt;pre&gt;&lt;code data-lang=&quot;yml&quot;&gt;---
+services:
+
+  traefik:
+    image: &amp;quot;traefik:v3.2.1&amp;quot;
+    container_name: &amp;quot;traefik&amp;quot;
+    ports:
+      - &amp;quot;80:80&amp;quot;
+      - &amp;quot;443:443&amp;quot;
+      - &amp;quot;8080:8080&amp;quot;
+    volumes:
+      - &amp;quot;&#x2F;var&#x2F;run&#x2F;docker.sock:&#x2F;var&#x2F;run&#x2F;docker.sock:ro&amp;quot;
+      - &amp;quot;.&#x2F;config&#x2F;traefik.yml:&#x2F;etc&#x2F;traefik&#x2F;traefik.yml:ro&amp;quot;
+      - &amp;quot;.&#x2F;config&#x2F;conf:&#x2F;etc&#x2F;traefik&#x2F;conf:ro&amp;quot;
+    networks:
+      - docbridge
+    restart: unless-stopped
+  
+networks:
+  docbridge:
+    external: true
+
+&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt; &lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Create &lt;code&gt;traefik.yml&lt;&#x2F;code&gt; config file in the &lt;code&gt;config&lt;&#x2F;code&gt; directory for traefik docker container.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;pre&gt;&lt;code data-lang=&quot;sh&quot;&gt;mkdir config
+
+vim config&#x2F;traefik.yml
+&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt; &lt;&#x2F;p&gt;
+&lt;p&gt;Put the following config:&lt;&#x2F;p&gt;
+&lt;pre&gt;&lt;code data-lang=&quot;yml&quot;&gt;global:
+  checkNewVersion: false
+  sendAnonymousUsage: false
+log:
+  level: DEBUG
+api:
+  dashboard: true
+  insecure: true
+entryPoints:
+  web:
+    address: :80
+  websecure:
+    address: :443
+providers:
+  file:
+    directory: &amp;quot;&#x2F;etc&#x2F;traefik&#x2F;conf&amp;quot;
+    watch: true
+
+&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt; &lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Set Traefik Router rules&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;pre&gt;&lt;code data-lang=&quot;sh&quot;&gt;mkdir -p config&#x2F;conf
+
+vim config&#x2F;conf&#x2F;routes.yml
+&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt; &lt;&#x2F;p&gt;
+&lt;p&gt;Put the following config&lt;&#x2F;p&gt;
+&lt;pre&gt;&lt;code data-lang=&quot;yml&quot;&gt;---
+http:
+  routers:
+    nginx-http:
+      rule: HostRegexp(`nginx`)
+      service: service-1
+      entryPoints: 
+        - web
+  services:
+    service-1:
+      loadBalancer:
+        servers:
+          - url: &amp;quot;http:&#x2F;&#x2F;nginx&amp;quot;
+
+&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt; &lt;&#x2F;p&gt;
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;Note: For “url” we have provided the nginx container name which is “nginx”. That is because nginx in this set-up is running as a docker container. And the Docker bridge networks have internal DNS resolution built-in by Docker. That’s why it is possible to point to nginx by simply using the container name, “nginx” but we have to provide the protocol here which is “http:&#x2F;&#x2F;”. For the “url” We can also use “domain”, “IP” and “IP:Port”. For example, &lt;code&gt;http:&#x2F;&#x2F;127.0.0.1:8080&lt;&#x2F;code&gt; or &lt;code&gt;http:&#x2F;&#x2F;localhost:8000&lt;&#x2F;code&gt; or simply &lt;code&gt;https:&#x2F;&#x2F;example.com&lt;&#x2F;code&gt; and so on.&lt;&#x2F;strong&gt;&lt;&#x2F;em&gt;
+ &lt;&#x2F;p&gt;
+&lt;h2 id=&quot;setup-demo-docker-containers-nginx&quot;&gt;Setup demo docker containers (Nginx)&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Create a directory for nginx’s docker container and a &lt;code&gt;docker-compose.yml&lt;&#x2F;code&gt; file.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;pre&gt;&lt;code data-lang=&quot;sh&quot;&gt;mkdir nginx
+
+vim nginx&#x2F;docker-compose.yml
+&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt; &lt;&#x2F;p&gt;
+&lt;p&gt;Put the following config inside the &lt;code&gt;docker-compose.yml&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
+&lt;pre&gt;&lt;code data-lang=&quot;yml&quot;&gt;---
+services:
+  nginx:
+    image: &amp;quot;nginx:latest&amp;quot;
+    container_name: &amp;quot;nginx_demo&amp;quot;
+    restart: unless-stopped
+    networks:
+      - docbridge
+
+networks:
+  docbridge:
+    external: true
+
+&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt; &lt;&#x2F;p&gt;
+&lt;h2 id=&quot;deploy-docker-containers&quot;&gt;Deploy docker containers&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;We can deploy a docker container by going to the root directory of a container’s docker files (where &lt;code&gt;docker-compose.yml&lt;&#x2F;code&gt; lives). We can run the container in detach mode by providing the &lt;code&gt;-d&lt;&#x2F;code&gt; flag. Otherwise, it will run in foreground and we can see the logs live.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;pre&gt;&lt;code data-lang=&quot;sh&quot;&gt;cd nginx
+
+sudo docker compose up -d
+&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt; &lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Deploy the Traefik container and put it to detach mode:&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;pre&gt;&lt;code data-lang=&quot;sh&quot;&gt;cd traefik
+
+sudo docker compose up -d
+&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt; &lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;If a docker container is running on foreground (without &lt;code&gt;-d&lt;&#x2F;code&gt;). Then we can put the container &lt;code&gt;down&lt;&#x2F;code&gt; with:&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;pre&gt;&lt;code data-lang=&quot;sh&quot;&gt;sudo docker compose down &amp;lt;container_name|container_ID|etc&amp;gt;
+
+sudo docker compose down nginx
+&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;ul&gt;
+&lt;li&gt;Or, if a container is running in the background (with &lt;code&gt;-d&lt;&#x2F;code&gt;). Then we can put the container &lt;code&gt;down&lt;&#x2F;code&gt; by simply pressing &lt;code&gt;CTRL+C&lt;&#x2F;code&gt;.
+ &lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;Done!&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Handling Redirects with Traefik Reverse Proxy</title>
+        <published>2025-08-25T00:00:00+00:00</published>
+        <updated>2025-08-25T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://saif-it.pages.dev/blog/traefik-redirects/"/>
+        <id>https://saif-it.pages.dev/blog/traefik-redirects/</id>
+        
+        <content type="html" xml:base="https://saif-it.pages.dev/blog/traefik-redirects/">&lt;p&gt;Handling redirects with Traefik involves configuring middlewares to manage different types of redirections. Traefik supports several types of redirections, including RedirectScheme and RedirectRegex, which can be configured in various formats such as YAML, TOML, and Docker labels.&lt;&#x2F;p&gt;
+&lt;p&gt;For RedirectScheme, you can configure Traefik to redirect clients to a different scheme (e.g., from HTTP to HTTPS) by setting the &lt;code&gt;scheme&lt;&#x2F;code&gt; and &lt;code&gt;permanent&lt;&#x2F;code&gt; options. For example:&lt;&#x2F;p&gt;
+&lt;pre&gt;&lt;code data-lang=&quot;yaml&quot;&gt;http:
+  middlewares:
+    test-redirectscheme:
+      redirectScheme:
+        scheme: https
+        permanent: true
+&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;This configuration will redirect all HTTP requests to HTTPS permanently&lt;&#x2F;p&gt;
+&lt;p&gt;For RedirectRegex, you can use regular expressions to match and replace parts of the URL. For instance, to redirect requests from &lt;code&gt;http:&#x2F;&#x2F;localhost&#x2F;&lt;&#x2F;code&gt; to &lt;code&gt;http:&#x2F;&#x2F;mydomain&#x2F;&lt;&#x2F;code&gt;, you can configure it as follows:&lt;&#x2F;p&gt;
+&lt;pre&gt;&lt;code data-lang=&quot;yaml&quot;&gt;http:
+  middlewares:
+    test-redirectregex:
+      redirectRegex:
+        regex: &amp;quot;^http:&#x2F;&#x2F;localhost&#x2F;(.*)&amp;quot;
+        replacement: &amp;quot;http:&#x2F;&#x2F;mydomain&#x2F;${1}&amp;quot;
+        permanent: true
+&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;This configuration uses a regular expression to match the incoming request and replaces it with the specified URL&lt;&#x2F;p&gt;
+&lt;p&gt;When configuring redirects, it’s important to ensure that any reverse proxies between the client and Traefik are trusted to avoid issues with X-Forwarded headers&lt;&#x2F;p&gt;
+&lt;p&gt;Additionally, you can use Docker labels to apply these configurations directly to a container. For example, to redirect all requests to an external domain, you can configure the labels as follows:&lt;&#x2F;p&gt;
+&lt;pre&gt;&lt;code data-lang=&quot;yaml&quot;&gt;labels:
+  - &amp;quot;traefik.http.routers.redirect-router.entrypoints=web&amp;quot;
+  - &amp;quot;traefik.http.routers.redirect-router.rule=Host(`redirect.localhost`)&amp;quot;
+  - &amp;quot;traefik.http.routers.redirect-router.middlewares=redirect-regex&amp;quot;
+  - &amp;quot;traefik.http.middlewares.redirect-regex.redirectregex.regex=(.*)&amp;quot;
+  - &amp;quot;traefik.http.middlewares.redirect-regex.redirectregex.replacement=https:&#x2F;&#x2F;externaldomain.com&amp;quot;
+  - &amp;quot;traefik.http.middlewares.redirect-regex.redirectregex.permanent=false&amp;quot;
+&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;This configuration will redirect all requests to &lt;code&gt;redirect.localhost&lt;&#x2F;code&gt; to &lt;code&gt;https:&#x2F;&#x2F;externaldomain.com&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;When testing redirects, it’s recommended to set the &lt;code&gt;permanent&lt;&#x2F;code&gt; option to &lt;code&gt;false&lt;&#x2F;code&gt; to avoid caching issues in the browser&lt;&#x2F;p&gt;
+&lt;p&gt;For more detailed configurations and examples, you can refer to the Traefik documentation on RedirectScheme and RedirectRegex.
+ &lt;&#x2F;p&gt;
+&lt;h2 id=&quot;handling-multiple-regex-capture-groups&quot;&gt;Handling multiple regex capture groups&lt;&#x2F;h2&gt;
+&lt;p&gt;In the context of the &lt;code&gt;redirectRegex&lt;&#x2F;code&gt; middleware in Traefik, the &lt;code&gt;${1}&lt;&#x2F;code&gt; is a reference to a capture group in the regular expression.&lt;&#x2F;p&gt;
+&lt;p&gt;In the example I provided earlier:&lt;&#x2F;p&gt;
+&lt;pre&gt;&lt;code data-lang=&quot;yaml&quot;&gt;http:
+  middlewares:
+    test-redirectregex:
+      redirectRegex:
+        regex: &amp;quot;^http:&#x2F;&#x2F;localhost&#x2F;(.*)&amp;quot;
+        replacement: &amp;quot;http:&#x2F;&#x2F;mydomain&#x2F;${1}&amp;quot;
+        permanent: true
+&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;The regular expression &lt;code&gt;^http:&#x2F;&#x2F;localhost&#x2F;(.*)&lt;&#x2F;code&gt; contains a capture group &lt;code&gt;(.*)&lt;&#x2F;code&gt;, which matches any characters (including none) after the &lt;code&gt;&#x2F;&lt;&#x2F;code&gt; in the URL. The parentheses &lt;code&gt;(&lt;&#x2F;code&gt; and &lt;code&gt;)&lt;&#x2F;code&gt; create a group, which allows you to reference the matched text later.&lt;&#x2F;p&gt;
+&lt;p&gt;The &lt;code&gt;${1}&lt;&#x2F;code&gt; in the &lt;code&gt;replacement&lt;&#x2F;code&gt; field is a reference to the first capture group (i.e., the group created by the parentheses). It will be replaced with the actual text matched by the group.&lt;&#x2F;p&gt;
+&lt;p&gt;For example, if the incoming request is &lt;code&gt;http:&#x2F;&#x2F;localhost&#x2F;path&#x2F;to&#x2F;resource&lt;&#x2F;code&gt;, the regular expression will match the URL and capture the &lt;code&gt;path&#x2F;to&#x2F;resource&lt;&#x2F;code&gt; part in the group. The &lt;code&gt;${1}&lt;&#x2F;code&gt; in the replacement string will be replaced with &lt;code&gt;path&#x2F;to&#x2F;resource&lt;&#x2F;code&gt;, resulting in the final redirect URL: &lt;code&gt;http:&#x2F;&#x2F;mydomain&#x2F;path&#x2F;to&#x2F;resource&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;In general, the syntax &lt;code&gt;${n}&lt;&#x2F;code&gt; refers to the nth capture group in the regular expression, where &lt;code&gt;n&lt;&#x2F;code&gt; is a positive integer. You can have multiple capture groups in a regular expression and reference them in the replacement string using &lt;code&gt;${1}&lt;&#x2F;code&gt;, &lt;code&gt;${2}&lt;&#x2F;code&gt;, &lt;code&gt;${3}&lt;&#x2F;code&gt;, and so on.&lt;&#x2F;p&gt;
+&lt;p&gt;Here’s another example with multiple capture groups:&lt;&#x2F;p&gt;
+&lt;pre&gt;&lt;code data-lang=&quot;yaml&quot;&gt;http:
+  middlewares:
+    test-redirectregex:
+      redirectRegex:
+        regex: &amp;quot;^http:&#x2F;&#x2F;localhost&#x2F;([^&#x2F;]+)&#x2F;([^&#x2F;]+)&amp;quot;
+        replacement: &amp;quot;http:&#x2F;&#x2F;mydomain&#x2F;${1}&#x2F;${2}&amp;quot;
+        permanent: true
+&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;In this case, the regular expression &lt;code&gt;^http:&#x2F;&#x2F;localhost&#x2F;([^&#x2F;]+)&#x2F;([^&#x2F;]+)&lt;&#x2F;code&gt; has two capture groups: &lt;code&gt;([^&#x2F;]+)&lt;&#x2F;code&gt; matches one or more characters that are not &lt;code&gt;&#x2F;&lt;&#x2F;code&gt;, and the second &lt;code&gt;([^&#x2F;]+)&lt;&#x2F;code&gt; matches another set of characters that are not &lt;code&gt;&#x2F;&lt;&#x2F;code&gt;. The replacement string &lt;code&gt;http:&#x2F;&#x2F;mydomain&#x2F;${1}&#x2F;${2}&lt;&#x2F;code&gt; will be replaced with the actual text matched by the two groups.&lt;&#x2F;p&gt;
+&lt;p&gt;For instance, if the incoming request is &lt;code&gt;http:&#x2F;&#x2F;localhost&#x2F;user&#x2F;profile&lt;&#x2F;code&gt;, the regular expression will match the URL and capture &lt;code&gt;user&lt;&#x2F;code&gt; and &lt;code&gt;profile&lt;&#x2F;code&gt; in the two groups. The replacement string will be replaced with &lt;code&gt;http:&#x2F;&#x2F;mydomain&#x2F;user&#x2F;profile&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+</feed>
